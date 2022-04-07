@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS recipes(
   category TEXT NOT NULL,
   FOREIGN KEY(creatorId) REFERENCES accounts(id)
 ) default charset utf8;
-CREATE TABLE IF NOT EXISTS indgredients(
+CREATE TABLE IF NOT EXISTS ingredients(
   id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   recipeId int,
   name TEXT NOT NULL,
@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS steps(
   FOREIGN KEY(recipeId) REFERENCES recipes(id)
 ) default charset utf8;
 DROP TABLE IF EXISTS recipes;
-DROP TABLE IF EXISTS idgredients;
+DROP TABLE IF EXISTS ingredients;
 DROP TABLE IF EXISTS steps;
 INSERT INTO
   recipes(title, subtitle, category, creatorId)
