@@ -1,5 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using CodeWorks.Auth0Provider;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using spiceit.Models;
 using spiceit.Services;
@@ -27,6 +30,28 @@ namespace spiceit.Controllers
       }
       catch (Exception e)
       {
+        return BadRequest(e.Message);
+
+      }
+    }
+
+    [HttpPost]
+    [Authorize]
+
+    public async Task<ActionResult<Ingredient>> Create([FromBody]
+    Ingredient ingredientData)
+    {
+      try
+      {
+        Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
+
+        // ingredientData.RecipeId = userInfo.Id;
+        Ingredient ingredient = _is.Create(ingredientData);
+        return Ok($"api/ingredients/{ingredient.RecipeId}");
+      }
+      catch (Exception e)
+      {
+
         return BadRequest(e.Message);
 
       }
