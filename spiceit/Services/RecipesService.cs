@@ -1,3 +1,7 @@
+using System.Collections.Generic;
+using spiceit.Models;
+using spiceit.Repositories;
+
 namespace spiceit.Services
 {
   public class RecipesService
@@ -9,6 +13,14 @@ namespace spiceit.Services
       _repo = repo;
     }
 
-    
+    internal List<Recipe> GetAll()
+    {
+      return _repo.GetAll();
+    }
+
+    internal Recipe Create(Recipe recipeData)
+    {
+      return _repo.Create(recipeData);
+    }
   }
 }

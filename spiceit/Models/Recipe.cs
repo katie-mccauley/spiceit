@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace spiceit.Models
 {
   public class Recipe
@@ -8,5 +10,6 @@ namespace spiceit.Models
     public string Subtitle { get; set; }
     public string Category { get; set; }
     public string CreatorId { get; set; }
+    public Account? Creator { get; set; }
   }
 }
