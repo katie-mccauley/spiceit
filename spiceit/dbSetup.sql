@@ -6,3 +6,23 @@ CREATE TABLE IF NOT EXISTS accounts(
   email varchar(255) COMMENT 'User Email',
   picture varchar(255) COMMENT 'User Picture'
 ) default charset utf8 COMMENT '';
+CREATE TABLE IF NOT EXISTS recipes(
+  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  title TEXT NOT NULL,
+  subtitle TEXT NOT NULL,
+  category TEXT NOT NULL
+) default charset utf8;
+CREATE TABLE IF NOT EXISTS idgredients(
+  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  recipeId int,
+  name TEXT NOT NULL,
+  quantity TEXT NOT NULL,
+  FOREIGN KEY(recipeId) REFERENCES recipes(id)
+) default charset utf8;
+CREATE TABLE IF NOT EXISTS steps(
+  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  recipeId int,
+  ordr int,
+  body TEXT NOT NULL,
+  FOREIGN KEY(recipeId) REFERENCES recipes(id)
+) default charset utf8;
