@@ -48,11 +48,29 @@ namespace spiceit.Controllers
         recipe.Creator = userInfo;
         return Created($"api/recipes/{recipe.Id}", recipe);
       }
-      catch (System.Exception)
+      catch (Exception e)
       {
 
-        throw;
+        return BadRequest(e.Message);
+
       }
     }
+
+    [HttpDelete("{id}")]
+    [Authorize]
+    public async Task<ActionResult<string>> Remove(int Id)
+    {
+      try
+      {
+        Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
+        return Ok(_rs.Remove(Id, userInfo));
+      }
+      catch (Exception e)
+      {
+        return BadRequest(e.Message);
+      }
+    }
+
+
   }
 }

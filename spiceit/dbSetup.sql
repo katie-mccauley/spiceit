@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS recipes(
   category TEXT NOT NULL,
   FOREIGN KEY(creatorId) REFERENCES accounts(id)
 ) default charset utf8;
-CREATE TABLE IF NOT EXISTS idgredients(
+CREATE TABLE IF NOT EXISTS indgredients(
   id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   recipeId int,
   name TEXT NOT NULL,
