@@ -7,31 +7,37 @@ namespace spiceit.Services
 {
   public class IngredientsService
   {
-    private readonly IngredientsRepository _is;
+    private readonly IngredientsRepository _ingreds;
 
-    public IngredientsService(IngredientsRepository @is)
+    public IngredientsService(IngredientsRepository ingreds)
     {
-      _is = @is;
+      _ingreds = ingreds;
     }
 
     internal List<Ingredient> GetAll()
     {
-      return _is.GetAll();
+      return _ingreds.GetAll();
     }
 
     internal Ingredient Create(Ingredient ingredientData)
     {
-      return _is.Create(ingredientData);
+      return _ingreds.Create(ingredientData);
     }
 
     internal Ingredient GetById(int recipeId)
     {
-      Ingredient ingredient = _is.GetById(recipeId);
+      Ingredient ingredient = _ingreds.GetById(recipeId);
       if (ingredient == null)
       {
         throw new Exception("Unable to find the ingredient");
       }
       return ingredient;
+    }
+
+    internal void RemoveIngredient(int recipeId, string id)
+    {
+      Ingredient ingredient = GetById(recipeId);
+      _ingreds.RemoveIngredient(recipeId);
     }
 
 

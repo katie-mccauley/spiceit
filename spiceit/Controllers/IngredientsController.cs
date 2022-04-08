@@ -72,7 +72,7 @@ namespace spiceit.Controllers
     //   }
     // }
     [HttpGet("{recipeId}")]
-    public ActionResult<Recipe> GetById(int recipeId)
+    public ActionResult<Ingredient> GetById(int recipeId)
     {
       try
       {
@@ -83,5 +83,22 @@ namespace spiceit.Controllers
         return BadRequest(e.Message);
       }
     }
+    [HttpDelete("{recipeId}")]
+    [Authorize]
+    public async Task<ActionResult<Ingredient>> RemoveIngredient(int recipeId)
+    {
+      try
+      {
+        Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
+        _ingreds.RemoveIngredient(recipeId, userInfo.Id);
+        return Ok("Delteored");
+      }
+      catch (Exception e)
+      {
+        return BadRequest(e.Message);
+      }
+    }
+
+
   }
 }

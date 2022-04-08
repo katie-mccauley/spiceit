@@ -45,6 +45,16 @@ namespace spiceit.Repositories
       ";
       Ingredient ingredient = _db.QueryFirstOrDefault<Ingredient>(sql, new { recipeId });
       return ingredient;
+
     }
+
+    internal void RemoveIngredient(int recipeId)
+    {
+      string sql = @"
+      DELETE FROM ingredients WHERE recipeId=@RecipeId LIMIT 1;
+      ";
+      _db.Execute(sql, new { recipeId });
+    }
+
   }
 }
