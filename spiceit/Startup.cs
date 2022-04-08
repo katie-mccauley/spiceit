@@ -40,6 +40,9 @@ namespace spiceit
       services.AddTransient<IngredientsRepository>();
 
       services.AddTransient<IngredientsService>();
+      services.AddTransient<StepsRepository>();
+
+      services.AddTransient<StepsServices>();
     }
 
     private void ConfigureCors(IServiceCollection services)
