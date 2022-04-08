@@ -24,8 +24,18 @@ namespace spiceit.Services
       return _is.Create(ingredientData);
     }
 
+    internal Ingredient GetById(int recipeId)
+    {
+      Ingredient ingredient = _is.GetById(recipeId);
+      if (ingredient == null)
+      {
+        throw new Exception("Unable to find the ingredient");
+      }
+      return ingredient;
+    }
 
-    
+
+
     // internal object RemoveIngredientFromRecipe(int recipeId, string id)
     // {
     //   Ingredient ingredient = 

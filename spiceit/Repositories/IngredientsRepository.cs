@@ -35,5 +35,16 @@ namespace spiceit.Repositories
       int id = _db.ExecuteScalar<int>(sql, ingredientData);
       return ingredientData;
     }
+
+    internal Ingredient GetById(int recipeId)
+    {
+      string sql = @"
+      SELECT 
+      i.*
+      FROM ingredients i WHERE recipeId = @RecipeId;
+      ";
+      Ingredient ingredient = _db.QueryFirstOrDefault<Ingredient>(sql, new { recipeId });
+      return ingredient;
+    }
   }
 }
