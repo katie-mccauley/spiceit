@@ -45,5 +45,13 @@ namespace spiceit.Repositories
       int id = _db.ExecuteScalar<int>(sql, stepData);
       return stepData;
     }
+
+    internal void RemoveStep(int recipeId)
+    {
+      string sql = @"
+      DELETE FROM steps WHERE recipeId=@RecipeId LIMIT 1;
+      ";
+      _db.Execute(sql, new { recipeId });
+    }
   }
 }

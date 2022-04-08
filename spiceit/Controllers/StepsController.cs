@@ -67,5 +67,20 @@ namespace spiceit.Controllers
 
       }
     }
+    [HttpDelete("{recipeId}")]
+    [Authorize]
+    public async Task<ActionResult<Step>> RemoveStep(int recipeId)
+    {
+      try
+      {
+        Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
+        _steps.RemoveStep(recipeId, userInfo.Id);
+        return Ok("Delteored");
+      }
+      catch (Exception e)
+      {
+        return BadRequest(e.Message);
+      }
+    }
   }
 }

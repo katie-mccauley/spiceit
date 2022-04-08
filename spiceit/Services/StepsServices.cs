@@ -33,5 +33,11 @@ namespace spiceit.Services
     {
       return _steps.Create(stepData);
     }
+
+    internal void RemoveStep(int recipeId, string id)
+    {
+      Step step = GetById(recipeId);
+      _steps.RemoveStep(recipeId);
+    }
   }
 }
