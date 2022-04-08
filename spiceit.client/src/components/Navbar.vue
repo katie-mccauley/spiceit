@@ -18,25 +18,42 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarText">
       <ul class="navbar-nav me-auto">
-        <li>
+        <!-- <li>
           <router-link
             :to="{ name: 'About' }"
             class="btn text-success lighten-30 selectable text-uppercase"
           >
             About
           </router-link>
+        </li> -->
+        <li>
+          <h1>
+            <i
+              data-bs-toggle="modal"
+              data-bs-target="#create-recipe"
+              class="mdi mdi-plus selectable"
+            ></i>
+          </h1>
         </li>
       </ul>
       <!-- LOGIN COMPONENT HERE -->
       <Login />
     </div>
   </nav>
+  <Modal id="create-recipe">
+    <template #title> Create Recipe</template>
+    <template #body><CreateRecipe :recipeData="recipe" /></template>
+  </Modal>
 </template>
 
 <script>
+import { computed } from "@vue/reactivity";
+import { AppState } from "../AppState";
 export default {
   setup() {
-    return {};
+    return {
+      recipe: computed(() => AppState.recipes)
+    };
   },
 };
 </script>
