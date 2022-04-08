@@ -43,5 +43,10 @@ namespace spiceit.Services
       }
       return foundRecipe;
     }
+
+    internal List<RecipeViewModel> GetFav(string id)
+    {
+      return _repo.GetFav(id);
+    }
   }
 }

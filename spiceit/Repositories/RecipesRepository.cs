@@ -48,6 +48,27 @@ namespace spiceit.Repositories
       }, new { id }).FirstOrDefault();
     }
 
+    internal List<RecipeViewModel> GetFav(string id)
+    {
+      string sql = @"
+          SELECT
+            a.*,
+            fav.*,
+            r.*
+          FROM favorites fav
+          JOIN recipes r ON fav.recipeId = r.id
+          JOIN accounts a ON r.creatorId = a.id
+          WHERE fav.accountId = @id;
+      ";
+      List<RecipeViewModel> recipes = _db.Query<Account, Favorite, RecipeViewModel, RecipeViewModel>(sql, (a, fav, r) =>
+      {
+        r.Creator = a;
+        r.FavoriteId = fav.Id;
+        return r;
+      }, new { id }).ToList<RecipeViewModel>();
+      return recipes;
+    }
+
     internal Recipe Create(Recipe recipeData)
     {
       string sql = @"

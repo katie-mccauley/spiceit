@@ -12,5 +12,11 @@ namespace spiceit.Models
     public string Category { get; set; }
     public string CreatorId { get; set; }
     public Account? Creator { get; set; }
+
+  }
+
+  public class RecipeViewModel : Recipe
+  {
+    public int? FavoriteId { get; set; }
   }
 }
