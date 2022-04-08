@@ -23,7 +23,7 @@ namespace spiceit.Repositories
       return _db.Query<Step>(sql).ToList();
     }
 
-    internal Step GetById(int recipeId)
+    internal Step GetSteps(int recipeId)
     {
       string sql = @"
       SELECT 

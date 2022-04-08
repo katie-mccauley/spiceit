@@ -19,9 +19,9 @@ namespace spiceit.Services
       return _steps.GetAll();
     }
 
-    internal Step GetById(int recipeId)
+    internal Step GetSteps(int recipeId)
     {
-      Step step = _steps.GetById(recipeId);
+      Step step = _steps.GetSteps(recipeId);
       if (step == null)
       {
         throw new Exception("Unable to find the ingredient");
@@ -36,13 +36,13 @@ namespace spiceit.Services
 
     internal void RemoveStep(int recipeId, string id)
     {
-      Step step = GetById(recipeId);
+      Step step = GetSteps(recipeId);
       _steps.RemoveStep(recipeId);
     }
 
     internal Step Update(Step stepData)
     {
-      Step step = GetById(stepData.RecipeId);
+      Step step = GetSteps(stepData.RecipeId);
       step.Ordr = stepData.Ordr;
       step.Body = stepData.Body;
       _steps.Update(step);

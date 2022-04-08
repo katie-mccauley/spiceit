@@ -1,6 +1,20 @@
 <template>
   <div class="container-fluid">
     <div class="row">
+      <form class="form-group row" @submit.prevent="search">
+        <input
+          v-model="searchTerm"
+          type="text"
+          class="col-md-9 col-8"
+          placeholder="search...."
+        />
+        <button class="btn btn-outline-primary col-4 col-md-3">search</button>
+      </form>
+      <div class="col-10 d-flex justify-content-between">
+        <button class="btn-info btn">ALL</button>
+        <button class="btn-info btn">Favorites</button>
+        <button class="btn-info btn">My Posts</button>
+      </div>
       <div
         class="col-6 home-card p-5 bg-white rounded elevation-3"
         v-for="r in recipes"

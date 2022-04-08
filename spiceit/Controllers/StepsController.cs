@@ -34,18 +34,18 @@ namespace spiceit.Controllers
         return BadRequest(e.Message);
       }
     }
-    [HttpGet("{recipeId}")]
-    public ActionResult<Step> GetById(int recipeId)
-    {
-      try
-      {
-        return Ok(_steps.GetById(recipeId));
-      }
-      catch (Exception e)
-      {
-        return BadRequest(e.Message);
-      }
-    }
+    // [HttpGet("{recipeId}")]
+    // public ActionResult<Step> GetById(int recipeId)
+    // {
+    //   try
+    //   {
+    //     return Ok(_steps.GetById(recipeId));
+    //   }
+    //   catch (Exception e)
+    //   {
+    //     return BadRequest(e.Message);
+    //   }
+    // }
 
     [HttpPost]
     [Authorize]

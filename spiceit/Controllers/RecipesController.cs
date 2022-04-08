@@ -18,10 +18,13 @@ namespace spiceit.Controllers
     private readonly RecipesService _rs;
     private readonly IngredientsService _ingreds;
 
-    public RecipesController(RecipesService rs, IngredientsService ingreds)
+    private readonly StepsServices _steps;
+
+    public RecipesController(RecipesService rs, IngredientsService ingreds, StepsServices steps)
     {
       _rs = rs;
       _ingreds = ingreds;
+      _steps = steps;
     }
 
     [HttpGet]
@@ -31,6 +34,19 @@ namespace spiceit.Controllers
       {
         List<Recipe> recipes = _rs.GetAll();
         return Ok(recipes);
+      }
+      catch (Exception e)
+      {
+        return BadRequest(e.Message);
+      }
+    }
+
+    [HttpGet("{recipeId}/steps")]
+    public ActionResult<Step> GetSteps(int recipeId)
+    {
+      try
+      {
+        return Ok(_steps.GetSteps(recipeId));
       }
       catch (Exception e)
       {
