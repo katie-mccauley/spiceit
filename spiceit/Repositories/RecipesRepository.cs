@@ -52,9 +52,9 @@ namespace spiceit.Repositories
     {
       string sql = @"
       INSERT INTO recipes
-      (title, subtitle, category, creatorId)
+      (title, picture, subtitle, category, creatorId)
       VALUES 
-      (@Title, @Subtitle, @Category, @CreatorId);
+      (@Title, @PICTURE, @Subtitle, @Category, @CreatorId);
       SELECT LAST_INSERT_ID();
       ";
       int id = _db.ExecuteScalar<int>(sql, recipeData);
@@ -64,11 +64,12 @@ namespace spiceit.Repositories
 
     internal string Remove(int id)
     {
-      string sql=@"
+      string sql = @"
       DELETE FROM recipes WHERE id = @id LIMIT 1;
       ";
-      int removedRow = _db.Execute(sql, new{id});
-      if(removedRow > 0){
+      int removedRow = _db.Execute(sql, new { id });
+      if (removedRow > 0)
+      {
         return "DELETED";
       }
       throw new Exception("could not deletes this recipe");
