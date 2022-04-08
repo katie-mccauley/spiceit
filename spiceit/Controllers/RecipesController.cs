@@ -16,10 +16,12 @@ namespace spiceit.Controllers
   public class RecipesController : ControllerBase
   {
     private readonly RecipesService _rs;
+    private readonly IngredientsService _ingreds;
 
-    public RecipesController(RecipesService rs)
+    public RecipesController(RecipesService rs, IngredientsService ingreds)
     {
       _rs = rs;
+      _ingreds = ingreds;
     }
 
     [HttpGet]
@@ -71,6 +73,34 @@ namespace spiceit.Controllers
       }
     }
 
+    // [HttpDelete("{id}/ingredients/{id}")]
+    // public async Task<ActionResult<Ingredient>> RemoveIngredientFromRecipe(int RecipeId)
+    // {
+    //   try
+    //   {
+    //     Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
+    //     return Ok(_ingreds.RemoveIngredientFromRecipe(RecipeId, userInfo.Id));
+    //   }
+    //   catch (Exception e)
+    //   {
+    //     return BadRequest(e.Message);
+
+    //   }
+    // }
+
+    [HttpGet("{id}")]
+    public ActionResult<Recipe> GetById(int id)
+    {
+      try
+      {
+        return Ok(_rs.GetById(id));
+      }
+      catch (Exception e)
+      {
+
+        return BadRequest(e.Message);
+      }
+    }
 
   }
 }

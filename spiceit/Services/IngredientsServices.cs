@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using spiceit.Models;
 using spiceit.Repositories;
@@ -17,5 +18,17 @@ namespace spiceit.Services
     {
       return _is.GetAll();
     }
+
+    internal Ingredient Create(Ingredient ingredientData)
+    {
+      return _is.Create(ingredientData);
+    }
+
+
+    
+    // internal object RemoveIngredientFromRecipe(int recipeId, string id)
+    // {
+    //   Ingredient ingredient = 
+    // }
   }
 }

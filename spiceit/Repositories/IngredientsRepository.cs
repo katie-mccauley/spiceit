@@ -22,5 +22,18 @@ namespace spiceit.Repositories
       ";
       return _db.Query<Ingredient>(sql).ToList();
     }
+
+    internal Ingredient Create(Ingredient ingredientData)
+    {
+      string sql = @"
+      INSERT INTO ingredients
+      (name, quantity, recipeId)
+      Values 
+      (@Name, @Quantity, @RecipeId);
+      SELECT LAST_INSERT_ID();
+      ";
+      int id = _db.ExecuteScalar<int>(sql, ingredientData);
+      return ingredientData;
+    }
   }
 }

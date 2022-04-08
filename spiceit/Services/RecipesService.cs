@@ -33,5 +33,15 @@ namespace spiceit.Services
       }
       return _repo.Remove(id);
     }
+
+    internal Recipe GetById(int id)
+    {
+      Recipe foundRecipe = _repo.GetById(id);
+      if (foundRecipe == null)
+      {
+        throw new Exception("This can't be found");
+      }
+      return foundRecipe;
+    }
   }
 }

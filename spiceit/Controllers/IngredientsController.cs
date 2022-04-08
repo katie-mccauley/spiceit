@@ -13,11 +13,11 @@ namespace spiceit.Controllers
   [Route("api/[controller]")]
   public class IngredientsController : ControllerBase
   {
-    private readonly IngredientsService _is;
+    private readonly IngredientsService _ingreds;
 
-    public IngredientsController(IngredientsService @is)
+    public IngredientsController(IngredientsService ingreds)
     {
-      _is = @is;
+      _ingreds = ingreds;
     }
 
     [HttpGet]
@@ -25,7 +25,7 @@ namespace spiceit.Controllers
     {
       try
       {
-        List<Ingredient> ingredients = _is.GetAll();
+        List<Ingredient> ingredients = _ingreds.GetAll();
         return Ok(ingredients);
       }
       catch (Exception e)
@@ -46,8 +46,8 @@ namespace spiceit.Controllers
         Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
 
         // ingredientData.RecipeId = userInfo.Id;
-        Ingredient ingredient = _is.Create(ingredientData);
-        return Ok($"api/ingredients/{ingredient.RecipeId}");
+        Ingredient ingredient = _ingreds.Create(ingredientData);
+        return Created($"api/ingredients/{ingredient.RecipeId}", ingredientData);
       }
       catch (Exception e)
       {
@@ -56,5 +56,20 @@ namespace spiceit.Controllers
 
       }
     }
+
+    // [HttpDelete("{RecipeId}")]
+    // [Authorize]
+    // public async Task<ActionResult<string>> Remove(int RecipeId)
+    // {
+    //   try
+    //   {
+    //     Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
+    //     return Ok(_is.Remove(RecipeId, userInfo));
+    //   }
+    //   catch (Exception e)
+    //   {
+    //     return BadRequest(e.Message);
+    //   }
+    // }
   }
 }
