@@ -43,6 +43,8 @@ namespace spiceit
       services.AddTransient<StepsRepository>();
 
       services.AddTransient<StepsServices>();
+      services.AddTransient<FavoritesRepository>();
+      services.AddTransient<FavoritesService>();
     }
 
     private void ConfigureCors(IServiceCollection services)
