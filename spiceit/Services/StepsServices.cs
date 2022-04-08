@@ -39,5 +39,14 @@ namespace spiceit.Services
       Step step = GetById(recipeId);
       _steps.RemoveStep(recipeId);
     }
+
+    internal Step Update(Step stepData)
+    {
+      Step step = GetById(stepData.RecipeId);
+      step.Ordr = stepData.Ordr;
+      step.Body = stepData.Body;
+      _steps.Update(step);
+      return step;
+    }
   }
 }

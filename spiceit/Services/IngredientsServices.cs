@@ -44,7 +44,7 @@ namespace spiceit.Services
     {
       Ingredient ingredient = GetById(ingredientData.RecipeId);
       ingredient.Name = ingredientData.Name;
-      ingredient.Quantity = ingredient.Quantity;
+      ingredient.Quantity = ingredientData.Quantity;
       _ingreds.Update(ingredient);
       return ingredient;
     }

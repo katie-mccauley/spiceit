@@ -53,5 +53,17 @@ namespace spiceit.Repositories
       ";
       _db.Execute(sql, new { recipeId });
     }
+
+    internal void Update(Step step)
+    {
+      string sql = @"
+      UPDATE steps
+      SET
+        body = @Body, 
+        ordr = @Ordr
+      WHERE recipeId = @RecipeId;
+      ";
+      _db.Execute(sql, step);
+    }
   }
 }
