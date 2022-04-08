@@ -71,18 +71,18 @@ namespace spiceit.Controllers
     //     return BadRequest(e.Message);
     //   }
     // }
-    [HttpGet("{recipeId}")]
-    public ActionResult<Ingredient> GetById(int recipeId)
-    {
-      try
-      {
-        return Ok(_ingreds.GetById(recipeId));
-      }
-      catch (Exception e)
-      {
-        return BadRequest(e.Message);
-      }
-    }
+    // [HttpGet("{recipeId}")]
+    // public ActionResult<Ingredient> GetById(int recipeId)
+    // {
+    //   try
+    //   {
+    //     return Ok(_ingreds.GetById(recipeId));
+    //   }
+    //   catch (Exception e)
+    //   {
+    //     return BadRequest(e.Message);
+    //   }
+    // }
     [HttpDelete("{recipeId}")]
     [Authorize]
     public async Task<ActionResult<Ingredient>> RemoveIngredient(int recipeId)

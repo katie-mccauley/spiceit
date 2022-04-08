@@ -36,7 +36,7 @@ namespace spiceit.Repositories
       return ingredientData;
     }
 
-    internal Ingredient GetById(int recipeId)
+    internal Ingredient GetIngredient(int recipeId)
     {
       string sql = @"
       SELECT 

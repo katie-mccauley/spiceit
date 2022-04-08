@@ -24,9 +24,9 @@ namespace spiceit.Services
       return _ingreds.Create(ingredientData);
     }
 
-    internal Ingredient GetById(int recipeId)
+    internal Ingredient GetIngredient(int recipeId)
     {
-      Ingredient ingredient = _ingreds.GetById(recipeId);
+      Ingredient ingredient = _ingreds.GetIngredient(recipeId);
       if (ingredient == null)
       {
         throw new Exception("Unable to find the ingredient");
@@ -36,13 +36,13 @@ namespace spiceit.Services
 
     internal void RemoveIngredient(int recipeId, string id)
     {
-      Ingredient ingredient = GetById(recipeId);
+      Ingredient ingredient = GetIngredient(recipeId);
       _ingreds.RemoveIngredient(recipeId);
     }
 
     internal Ingredient Update(Ingredient ingredientData)
     {
-      Ingredient ingredient = GetById(ingredientData.RecipeId);
+      Ingredient ingredient = GetIngredient(ingredientData.RecipeId);
       ingredient.Name = ingredientData.Name;
       ingredient.Quantity = ingredientData.Quantity;
       _ingreds.Update(ingredient);

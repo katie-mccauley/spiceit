@@ -38,6 +38,19 @@ namespace spiceit.Controllers
       }
     }
 
+    [HttpGet("{recipeId}/ingredients")]
+    public ActionResult<Ingredient> GetIngredient(int recipeId)
+    {
+      try
+      {
+        return Ok(_ingreds.GetIngredient(recipeId));
+      }
+      catch (Exception e)
+      {
+        return BadRequest(e.Message);
+      }
+    }
+
     [HttpPost]
     [Authorize]
     public async Task<ActionResult<Recipe>> Create([FromBody] Recipe recipeData)

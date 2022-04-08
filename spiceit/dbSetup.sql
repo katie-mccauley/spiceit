@@ -40,3 +40,7 @@ VALUES
     "magic",
     "624f5a354ed28ee7d96ea2b4"
   );
+ALTER TABLE
+  recipes
+ADD
+  COLUMN picture TEXT NOT NULL
