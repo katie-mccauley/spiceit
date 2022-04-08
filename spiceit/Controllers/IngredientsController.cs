@@ -98,6 +98,22 @@ namespace spiceit.Controllers
         return BadRequest(e.Message);
       }
     }
+    [HttpPut("{recipeId}")]
+    [Authorize]
+    public async Task<ActionResult<Ingredient>> Update([FromBody] Ingredient ingredientData, int recipeId)
+    {
+      try
+      {
+        Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
+        return Ok(_ingreds.Update(ingredientData));
+      }
+      catch (Exception e)
+      {
+
+        return BadRequest(e.Message);
+
+      }
+    }
 
 
   }

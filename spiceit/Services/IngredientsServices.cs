@@ -40,6 +40,15 @@ namespace spiceit.Services
       _ingreds.RemoveIngredient(recipeId);
     }
 
+    internal Ingredient Update(Ingredient ingredientData)
+    {
+      Ingredient ingredient = GetById(ingredientData.RecipeId);
+      ingredient.Name = ingredientData.Name;
+      ingredient.Quantity = ingredient.Quantity;
+      _ingreds.Update(ingredient);
+      return ingredient;
+    }
+
 
 
     // internal object RemoveIngredientFromRecipe(int recipeId, string id)
