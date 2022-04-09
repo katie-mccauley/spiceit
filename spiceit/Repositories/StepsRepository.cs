@@ -38,9 +38,9 @@ namespace spiceit.Repositories
     {
       string sql = @"
       INSERT INTO steps
-      (ordr, body, recipeId)
+      (ordr, body, recipeId, creatorId)
       Values
-      (@Ordr, @Body, @RecipeId);
+      (@Ordr, @Body, @RecipeId, @CreatorId);
       ";
       int id = _db.ExecuteScalar<int>(sql, stepData);
       return stepData;

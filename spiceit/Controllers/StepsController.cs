@@ -57,6 +57,7 @@ namespace spiceit.Controllers
         Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
 
         // stepData.RecipeId = userInfo.Id;
+        stepData.CreatorId = userInfo.Id;
         Step step = _steps.Create(stepData);
         return Created($"api/steps/{step.RecipeId}", stepData);
       }

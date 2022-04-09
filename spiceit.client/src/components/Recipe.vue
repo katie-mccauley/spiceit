@@ -21,9 +21,21 @@
     <template #body>
       <div class="container-fluid">
         <div class="row bg-white text-dark rounded">
-          <!-- <div class="col-10" v-for="ingredient in ingredients">
-
+          <!-- <div class="col-10" v-for="i in ingredients" :key="i.id">
+            <h1>{{ i.name }}</h1>
           </div> -->
+          <div class="col-10 text-info">
+            <h2>The ingredients for this recipe</h2>
+            <h3>
+              {{ ingredients.name }}: Will need {{ ingredients.quantity }}
+            </h3>
+          </div>
+        </div>
+        <div class="row bg-white text-dark rounded">
+          <div class="col-10 text-info">
+            <h2>The steps for the recipe</h2>
+            <h3>{{ steps.ordr }}: {{ steps.body }}</h3>
+          </div>
         </div>
       </div>
     </template>
@@ -32,9 +44,11 @@
 
 
 <script>
-import { watchEffect } from "@vue/runtime-core"
+import { computed, watchEffect } from "@vue/runtime-core"
 import { logger } from "../utils/Logger"
 import { ingredientsService } from "../services/IngredientsService"
+import { AppState } from "../AppState"
+import { stepsService } from "../services/StepsService"
 export default {
   props: {
     recipe: {
@@ -46,11 +60,15 @@ export default {
     watchEffect(async () => {
       try {
         await ingredientsService.getAllIngredients(props.recipe.id);
+        await stepsService.getAllSteps(props.recipe.id);
       } catch (error) {
         logger.error(error)
       }
     })
-    return {}
+    return {
+      ingredients: computed(() => AppState.ingredients),
+      steps: computed(() => AppState.steps)
+    }
   }
 }
 </script>
