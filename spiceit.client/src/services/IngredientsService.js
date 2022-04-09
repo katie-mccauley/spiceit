@@ -10,6 +10,7 @@ class IngredientsService {
     const res = await api.get('api/recipes/' + id + '/ingredients')
     logger.log("this is all ingredinets", res.data)
     AppState.ingredients = res.data
+    logger.log("testing", AppState.ingredients)
   }
 
   async createIngredient(body) {

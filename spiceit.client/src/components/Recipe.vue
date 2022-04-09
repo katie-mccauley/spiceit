@@ -24,16 +24,7 @@
           <!-- <div class="col-10" v-for="i in ingredients" :key="i.id">
             <h1>{{ i.name }}</h1>
           </div> -->
-          <div
-            v-if="recipe.id == ingredients.recipeId"
-            class="col-10 text-info"
-          >
-            <h2>The ingredients for this recipe</h2>
-            <h3>
-              {{ ingredients.name }}: Will need
-              {{ ingredients.quantity }}
-            </h3>
-          </div>
+          <Ingredient :ingredientData="recipe" />
         </div>
         <div class="row bg-white text-dark rounded">
           <div class="col-10 text-info">
@@ -63,7 +54,7 @@ export default {
   setup(props) {
     watchEffect(async () => {
       try {
-        await ingredientsService.getAllIngredients(props.recipe.id);
+
         await stepsService.getAllSteps(props.recipe.id);
       } catch (error) {
         logger.error(error)
