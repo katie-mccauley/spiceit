@@ -31,7 +31,7 @@
           <button
             class="mdi mdi-plus btn"
             data-bs-toggle="modal"
-            data-bs-target="create"
+            data-bs-target="#create"
           ></button>
           <Modal id="create">
             <template #title> create an ingredient</template>
