@@ -16,10 +16,20 @@
         <button class="btn-info btn">My Posts</button>
       </div>
       <div
-        class="col-6 home-card p-5 bg-white rounded elevation-3"
+        class="col-4 home-card p-2 m-2 bg-white rounded elevation-3 selectable"
         v-for="r in recipes"
         :key="r.id"
       >
+        <div class="row justify-content-end">
+          <button
+            @click="deleteRecipe(r.id)"
+            type="button"
+            title="Delete Recipe"
+            class="btn-close btn-close-dark me-2"
+            aria-label="Close"
+          ></button>
+        </div>
+
         <Recipe :recipe="r" />
       </div>
     </div>
@@ -31,6 +41,7 @@ import { computed, onMounted } from "@vue/runtime-core"
 import { logger } from "../utils/Logger"
 import { recipesService } from "../services/RecipesService"
 import { AppState } from "../AppState"
+import Pop from "../utils/Pop"
 export default {
   name: 'Home',
   setup() {
@@ -42,7 +53,16 @@ export default {
       }
     })
     return {
-      recipes: computed(() => AppState.recipes)
+      recipes: computed(() => AppState.recipes),
+      async deleteRecipe(id) {
+        try {
+          if (await Pop.confirm()) {
+            await recipesService.deleteRecipe(id)
+          }
+        } catch (error) {
+          logger.error(error)
+        }
+      }
     }
   }
 }
