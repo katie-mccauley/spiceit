@@ -44,8 +44,7 @@ namespace spiceit.Controllers
       try
       {
         Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
-
-        // ingredientData.RecipeId = userInfo.Id;
+        ingredientData.CreatorId = userInfo.Id;
         Ingredient ingredient = _ingreds.Create(ingredientData);
         return Created($"api/ingredients/{ingredient.RecipeId}", ingredientData);
       }

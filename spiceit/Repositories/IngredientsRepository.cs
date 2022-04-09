@@ -27,9 +27,9 @@ namespace spiceit.Repositories
     {
       string sql = @"
       INSERT INTO ingredients
-      (name, quantity, recipeId)
+      (name, quantity, recipeId, creatorId)
       Values 
-      (@Name, @Quantity, @RecipeId);
+      (@Name, @Quantity, @RecipeId, @CreatorId);
       SELECT LAST_INSERT_ID();
       ";
       int id = _db.ExecuteScalar<int>(sql, ingredientData);
