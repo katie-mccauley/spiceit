@@ -16,7 +16,7 @@
         <button class="btn-info btn">My Posts</button>
       </div>
       <div
-        class="col-4 home-card p-2 m-2 bg-white rounded elevation-3 selectable"
+        class="col-3 home-card p-2 m-2 bg-white rounded elevation-3 selectable"
         v-for="r in recipes"
         :key="r.id"
       >
@@ -28,12 +28,22 @@
             class="btn-close btn-close-dark me-2"
             aria-label="Close"
           ></button>
+          <h2>
+            <i
+              class="mdi mdi-plus"
+              data-bs-toggle="modal"
+              data-bs-target="createIngredient"
+            ></i>
+          </h2>
         </div>
 
         <Recipe :recipe="r" />
       </div>
     </div>
   </div>
+  <Modal id="createIngredient">
+    <template #title> create an ingredient</template>
+  </Modal>
 </template>
 
 <script>

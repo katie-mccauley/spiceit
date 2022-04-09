@@ -11,12 +11,12 @@
     <button
       class="btn btn-success"
       data-bs-toggle="modal"
-      data-bs-target="#moredetails"
+      :data-bs-target="'#moredetails' + recipe.id"
     >
       See more details
     </button>
   </div>
-  <Modal id="moredetails">
+  <Modal :id="'moredetails' + recipe.id">
     <template #title> More Details</template>
     <template #body>
       <div class="container-fluid">
@@ -24,10 +24,14 @@
           <!-- <div class="col-10" v-for="i in ingredients" :key="i.id">
             <h1>{{ i.name }}</h1>
           </div> -->
-          <div class="col-10 text-info">
+          <div
+            v-if="recipe.id == ingredients.recipeId"
+            class="col-10 text-info"
+          >
             <h2>The ingredients for this recipe</h2>
             <h3>
-              {{ ingredients.name }}: Will need {{ ingredients.quantity }}
+              {{ ingredients.name }}: Will need
+              {{ ingredients.quantity }}
             </h3>
           </div>
         </div>
@@ -67,7 +71,8 @@ export default {
     })
     return {
       ingredients: computed(() => AppState.ingredients),
-      steps: computed(() => AppState.steps)
+      steps: computed(() => AppState.steps),
+      account: computed(() => AppState.account)
     }
   }
 }
