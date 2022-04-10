@@ -63,7 +63,7 @@ namespace spiceit.Controllers
       {
         return Ok(_ingreds.GetIngredientById(id));
       }
-      catch (System.Exception e)
+      catch (Exception e)
       {
         return BadRequest(e.Message);
       }

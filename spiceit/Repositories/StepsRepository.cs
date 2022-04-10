@@ -23,15 +23,16 @@ namespace spiceit.Repositories
       return _db.Query<Step>(sql).ToList();
     }
 
-    internal Step GetSteps(int recipeId)
+    internal List<Step> GetSteps(int recipeId)
     {
       string sql = @"
       SELECT 
       s.*
-      FROM steps s WHERE recipeId = @RecipeId;
+      FROM steps s WHERE recipeId = @recipeId;
       ";
-      Step step = _db.QueryFirstOrDefault<Step>(sql, new { recipeId });
-      return step;
+      // Step step = _db.QueryFirstOrDefault<Step>(sql, new { recipeId });
+      // return step;
+      return _db.Query<Step>(sql, new { recipeId }).ToList();
     }
 
     internal Step Create(Step stepData)
@@ -46,12 +47,23 @@ namespace spiceit.Repositories
       return stepData;
     }
 
-    internal void RemoveStep(int recipeId)
+    internal void RemoveStep(int id)
     {
       string sql = @"
-      DELETE FROM steps WHERE recipeId=@RecipeId LIMIT 1;
+      DELETE FROM steps WHERE id=@Id LIMIT 1;
       ";
-      _db.Execute(sql, new { recipeId });
+      _db.Execute(sql, new { id });
+    }
+
+    internal Step GetStepById(int id)
+    {
+      string sql = @"
+      SELECT *
+      FROM steps s 
+      WHERE id=@Id;
+      ";
+      Step step = _db.QueryFirstOrDefault<Step>(sql, new { id });
+      return step;
     }
 
     internal void Update(Step step)
@@ -61,7 +73,7 @@ namespace spiceit.Repositories
       SET
         body = @Body, 
         ordr = @Ordr
-      WHERE recipeId = @RecipeId;
+      WHERE id = @Id;
       ";
       _db.Execute(sql, step);
     }

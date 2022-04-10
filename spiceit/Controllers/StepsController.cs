@@ -68,14 +68,14 @@ namespace spiceit.Controllers
 
       }
     }
-    [HttpDelete("{recipeId}")]
+    [HttpDelete("{id}")]
     [Authorize]
-    public async Task<ActionResult<Step>> RemoveStep(int recipeId)
+    public async Task<ActionResult<Step>> RemoveStep(int id)
     {
       try
       {
         Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
-        _steps.RemoveStep(recipeId, userInfo.Id);
+        _steps.RemoveStep(id, userInfo.Id);
         return Ok("Delteored");
       }
       catch (Exception e)
@@ -83,20 +83,33 @@ namespace spiceit.Controllers
         return BadRequest(e.Message);
       }
     }
-    [HttpPut("{recipeId}")]
+    [HttpPut("{id}")]
     [Authorize]
-    public async Task<ActionResult<Step>> Update([FromBody] Step stepData, int recipeId)
+    public async Task<ActionResult<Step>> Update([FromBody] Step stepData, int id)
     {
       try
       {
         Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
-        return Ok(_steps.Update(stepData));
+        stepData.Id = id;
+        return Ok(_steps.Update(stepData, userInfo.Id));
       }
       catch (Exception e)
       {
 
         return BadRequest(e.Message);
 
+      }
+    }
+    [HttpGet("{id}")]
+    public ActionResult<Step> GetStepById(int id)
+    {
+      try
+      {
+        return Ok(_steps.GetStepById(id));
+      }
+      catch (Exception e)
+      {
+        return BadRequest(e.Message);
       }
     }
   }
