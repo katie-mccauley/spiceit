@@ -12,7 +12,6 @@
       class="btn btn-success"
       data-bs-toggle="modal"
       :data-bs-target="'#moredetails' + recipe.id"
-      onclick="activeRecipe()"
     >
       See more details
     </button>
@@ -29,9 +28,10 @@
           <Ingredient :ingredientData="recipe" />
         </div>
         <div class="row bg-white text-dark rounded">
-          <div class="col-10 text-info">
+          <div class="col-10 text-info" v-for="s in steps" :key="s.id">
             <h2>The steps for the recipe</h2>
-            <h3>{{ steps.ordr }}: {{ steps.body }}</h3>
+            <h3>{{ s.ordr }}: {{ s.body }}</h3>
+            <i class="mdi mdi-delete selectable" @click="deleteStep(s.id)"></i>
           </div>
         </div>
       </div>
@@ -41,7 +41,7 @@
 
 
 <script>
-import { computed, watchEffect } from "@vue/runtime-core"
+import { computed, onMounted, watchEffect } from "@vue/runtime-core"
 import { logger } from "../utils/Logger"
 import { ingredientsService } from "../services/IngredientsService"
 import { AppState } from "../AppState"
@@ -57,6 +57,7 @@ export default {
     watchEffect(async () => {
       try {
         await stepsService.getAllSteps(props.recipe.id);
+        await ingredientsService.getAllIngredients(props.recipe.id);
       } catch (error) {
         logger.error(error)
       }
@@ -64,7 +65,14 @@ export default {
     return {
       ingredients: computed(() => AppState.ingredients),
       steps: computed(() => AppState.steps),
-      account: computed(() => AppState.account)
+      account: computed(() => AppState.account),
+      async deleteStep(id) {
+        try {
+          await stepsService.deleteStep(id);
+        } catch (error) {
+          logger.error(error)
+        }
+      }
     }
   }
 }

@@ -7,6 +7,10 @@
           {{ i.name }}: Will need
           {{ i.quantity }}
         </h3>
+        <i
+          class="mdi mdi-delete selectable"
+          @click="deleteIngredient(i.id)"
+        ></i>
       </div>
     </div>
 
@@ -62,17 +66,25 @@ export default {
   setup(props) {
     const editable = ref({})
     const route = useRoute()
-    watchEffect(async () => {
-      try {
-        await ingredientsService.getAllIngredients(props.ingredientData.id);
+    // watchEffect(async () => {
+    //   try {
+    //     await ingredientsService.getAllIngredients(props.ingredientData.id);
 
-      } catch (error) {
-        logger.error(error)
-      }
-    })
+    //   } catch (error) {
+    //     logger.error(error)
+    //   }
+    // })
     return {
       editable,
       ingredients: computed(() => AppState.ingredients),
+      async deleteIngredient(id) {
+        try {
+          await ingredientsService.deleteIngredient(id)
+        } catch (error) {
+          logger.error(error)
+          Pop.toast('error')
+        }
+      },
       async createIngredient() {
         try {
           editable.value.recipeId = props.ingredientData.id
