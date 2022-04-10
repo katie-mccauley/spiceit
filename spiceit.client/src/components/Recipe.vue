@@ -12,10 +12,12 @@
       class="btn btn-success"
       data-bs-toggle="modal"
       :data-bs-target="'#moredetails' + recipe.id"
+      onclick="activeRecipe()"
     >
       See more details
     </button>
   </div>
+
   <Modal :id="'moredetails' + recipe.id">
     <template #title> More Details</template>
     <template #body>
@@ -54,7 +56,6 @@ export default {
   setup(props) {
     watchEffect(async () => {
       try {
-
         await stepsService.getAllSteps(props.recipe.id);
       } catch (error) {
         logger.error(error)

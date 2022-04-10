@@ -46,13 +46,26 @@ namespace spiceit.Controllers
         Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
         ingredientData.CreatorId = userInfo.Id;
         Ingredient ingredient = _ingreds.Create(ingredientData);
-        return Created($"api/ingredients/{ingredient.RecipeId}", ingredientData);
+        return Created($"api/ingredients", ingredientData);
       }
       catch (Exception e)
       {
 
         return BadRequest(e.Message);
 
+      }
+    }
+
+    [HttpGet("{id}")]
+    public ActionResult<Ingredient> GetIngredientById(int id)
+    {
+      try
+      {
+        return Ok(_ingreds.GetIngredientById(id));
+      }
+      catch (System.Exception e)
+      {
+        return BadRequest(e.Message);
       }
     }
 
@@ -82,14 +95,14 @@ namespace spiceit.Controllers
     //     return BadRequest(e.Message);
     //   }
     // }
-    [HttpDelete("{recipeId}")]
+    [HttpDelete("{id}")]
     [Authorize]
-    public async Task<ActionResult<Ingredient>> RemoveIngredient(int recipeId)
+    public async Task<ActionResult<Ingredient>> RemoveIngredient(int id)
     {
       try
       {
         Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
-        _ingreds.RemoveIngredient(recipeId, userInfo.Id);
+        _ingreds.RemoveIngredient(id, userInfo.Id);
         return Ok("Delteored");
       }
       catch (Exception e)
@@ -97,14 +110,15 @@ namespace spiceit.Controllers
         return BadRequest(e.Message);
       }
     }
-    [HttpPut("{recipeId}")]
+    [HttpPut("{id}")]
     [Authorize]
-    public async Task<ActionResult<Ingredient>> Update([FromBody] Ingredient ingredientData, int recipeId)
+    public async Task<ActionResult<Ingredient>> Update([FromBody] Ingredient ingredientData, int id)
     {
       try
       {
         Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
-        return Ok(_ingreds.Update(ingredientData));
+        ingredientData.Id = id;
+        return Ok(_ingreds.Update(ingredientData, userInfo.Id));
       }
       catch (Exception e)
       {
@@ -113,6 +127,8 @@ namespace spiceit.Controllers
 
       }
     }
+
+
 
 
   }

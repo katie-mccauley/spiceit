@@ -24,25 +24,53 @@ namespace spiceit.Services
       return _ingreds.Create(ingredientData);
     }
 
-    internal Ingredient GetIngredient(int recipeId)
+    internal List<Ingredient> GetIngredient(int recipeId)
     {
-      Ingredient ingredient = _ingreds.GetIngredient(recipeId);
+      return _ingreds.GetIngredient(recipeId);
+      // if (ingredient == null)
+      // {
+      //   throw new Exception("Unable to find the ingredient");
+      // }
+      // return ingredient;
+    }
+
+    internal Ingredient GetIngredientById(int id)
+    {
+      Ingredient ingredient = _ingreds.GetIngredientById(id);
       if (ingredient == null)
       {
-        throw new Exception("Unable to find the ingredient");
+        throw new Exception("unable to find the ingredient");
       }
       return ingredient;
     }
 
-    internal void RemoveIngredient(int recipeId, string id)
+    // internal Ingredient GetIngredientById(int recipeId)
+    // {
+    //   Ingredient ingredient = _ingreds.GetIngredientById(recipeId);
+    //   if (ingredient == null)
+    //   {
+    //     throw new Exception("Unable to find that player");
+    //   }
+    //   return ingredient;
+    // }
+
+    internal void RemoveIngredient(int id, string userId)
     {
-      Ingredient ingredient = GetIngredient(recipeId);
-      _ingreds.RemoveIngredient(recipeId);
+      Ingredient ingredient = GetIngredientById(id);
+      if (ingredient.CreatorId != userId)
+      {
+        throw new Exception("can't delete something that isnt yours");
+      }
+      _ingreds.RemoveIngredient(id);
     }
 
-    internal Ingredient Update(Ingredient ingredientData)
+    internal Ingredient Update(Ingredient ingredientData, string userId)
     {
-      Ingredient ingredient = GetIngredient(ingredientData.RecipeId);
+      Ingredient ingredient = GetIngredientById(ingredientData.Id);
+      if (ingredient.CreatorId != userId)
+      {
+        throw new Exception("can't edit soemhting that isnt yours");
+      }
       ingredient.Name = ingredientData.Name;
       ingredient.Quantity = ingredientData.Quantity;
       _ingreds.Update(ingredient);

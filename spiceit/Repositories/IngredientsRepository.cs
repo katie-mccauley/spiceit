@@ -33,27 +33,38 @@ namespace spiceit.Repositories
       SELECT LAST_INSERT_ID();
       ";
       int id = _db.ExecuteScalar<int>(sql, ingredientData);
+      ingredientData.Id = id;
       return ingredientData;
     }
 
-    internal Ingredient GetIngredient(int recipeId)
+    internal List<Ingredient> GetIngredient(int recipeId)
     {
       string sql = @"
       SELECT 
       i.*
       FROM ingredients i WHERE recipeId = @RecipeId;
       ";
-      Ingredient ingredient = _db.QueryFirstOrDefault<Ingredient>(sql, new { recipeId });
-      return ingredient;
-
+      // Ingredient ingredient = _db.QueryFirstOrDefault<Ingredient>(sql, new { recipeId });
+      // return ingredient;
+      return _db.Query<Ingredient>(sql, new { recipeId }).ToList();
     }
 
-    internal void RemoveIngredient(int recipeId)
+    internal Ingredient GetIngredientById(int id)
     {
       string sql = @"
-      DELETE FROM ingredients WHERE recipeId=@RecipeId LIMIT 1;
+      SELECT *
+      FROM ingredients i
+      WHERE id=@id;";
+      Ingredient ingredient = _db.QueryFirstOrDefault<Ingredient>(sql, new { id });
+      return ingredient;
+    }
+
+    internal void RemoveIngredient(int id)
+    {
+      string sql = @"
+      DELETE FROM ingredients WHERE id=@Id LIMIT 1;
       ";
-      _db.Execute(sql, new { recipeId });
+      _db.Execute(sql, new { id });
     }
 
     internal void Update(Ingredient ingredient)
@@ -63,9 +74,10 @@ namespace spiceit.Repositories
       SET
         name = @Name, 
         quantity = @Quantity
-      WHERE recipeId = @RecipeId;
+      WHERE id = @Id;
       ";
       _db.Execute(sql, ingredient);
+
     }
   }
 }

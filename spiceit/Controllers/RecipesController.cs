@@ -55,7 +55,7 @@ namespace spiceit.Controllers
     }
 
     [HttpGet("{recipeId}/ingredients")]
-    public ActionResult<Ingredient> GetIngredient(int recipeId)
+    public ActionResult<List<Ingredient>> GetIngredient(int recipeId)
     {
       try
       {

@@ -1,14 +1,20 @@
 <template>
   <div class="col-10 text-info">
     <h2>The ingredients for this recipe</h2>
-    <h3>
-      {{ ingredients.name }}: Will need
-      {{ ingredients.quantity }}
-    </h3>
+    <div class="row">
+      <div class="col-6" v-for="i in ingredients" :key="i.id">
+        <h3>
+          {{ i.name }}: Will need
+          {{ i.quantity }}
+        </h3>
+      </div>
+    </div>
+
     <form @submit.prevent="createIngredient">
       <div class="input-group mb-3">
         <input
           v-model="editable.name"
+          required
           type="text"
           class="form-control"
           placeholder="Add Name"
@@ -17,12 +23,14 @@
         />
         <input
           v-model="editable.quantity"
+          required
           type="text"
           class="form-control"
           placeholder="Add Quantity"
           aria-label="Recipient's username"
           aria-describedby="button-addon2"
         />
+
         <button
           class="btn btn-outline-secondary"
           type="button"
@@ -57,6 +65,7 @@ export default {
     watchEffect(async () => {
       try {
         await ingredientsService.getAllIngredients(props.ingredientData.id);
+
       } catch (error) {
         logger.error(error)
       }
