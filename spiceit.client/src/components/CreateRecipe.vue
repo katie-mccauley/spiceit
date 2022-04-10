@@ -91,15 +91,14 @@ export default {
     return {
       editable,
       async createRecipe() {
-        // try {
-        //   Modal.getOrCreateInstance(document.getElementById('create-recipe')).hide()
-        //   await recipesService.createRecipe(editable.value);
-        //   editable.value = {}
-        // } catch (error) {
-        //   logger.error(error)
-        //   Pop.toast('error')
-        // }
-        logger.log("this is recipe")
+        try {
+          Modal.getOrCreateInstance(document.getElementById('create-recipe')).hide()
+          await recipesService.createRecipe(editable.value);
+          editable.value = {}
+        } catch (error) {
+          logger.error(error)
+          Pop.toast('error')
+        }
       }
     }
   }

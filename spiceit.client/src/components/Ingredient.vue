@@ -11,6 +11,12 @@
           class="mdi mdi-delete selectable"
           @click="deleteIngredient(i.id)"
         ></i>
+        <i
+          class="mdi mdi-pencil selectable"
+          @click="closeModal"
+          data-bs-toggle="modal"
+          data-bs-target="#editI"
+        ></i>
       </div>
     </div>
 
@@ -45,6 +51,17 @@
       </div>
     </form>
   </div>
+  <Modal id="editI">
+    <template #title>
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-4 bg-white">
+            <h1>hshshshshshssh</h1>
+          </div>
+        </div>
+      </div>
+    </template>
+  </Modal>
 </template>
 
 
@@ -56,6 +73,7 @@ import { logger } from "../utils/Logger"
 import Pop from "../utils/Pop"
 import { ingredientsService } from "../services/IngredientsService"
 import { watchEffect } from "@vue/runtime-core"
+import { Modal } from "bootstrap"
 export default {
   props: {
     ingredientData: {
@@ -86,13 +104,20 @@ export default {
         }
       },
       async createIngredient() {
+        // try {
+        //   editable.value.recipeId = props.ingredientData.id
+        //   await ingredientsService.createIngredient(editable.value)
+        //   editable.value = {}
+        // } catch (error) {
+        //   logger.error(error)
+        //   Pop.toast('error')
+        // }
+      },
+      closeModal() {
         try {
-          editable.value.recipeId = props.ingredientData.id
-          await ingredientsService.createIngredient(editable.value)
-          editable.value = {}
+          Modal.getOrCreateInstance(document.getElementById('moredetails' + props.ingredientData.id)).hide()
         } catch (error) {
           logger.error(error)
-          Pop.toast('error')
         }
       }
     }
