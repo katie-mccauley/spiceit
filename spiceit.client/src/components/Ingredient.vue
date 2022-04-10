@@ -19,8 +19,8 @@
         ></i>
       </div>
     </div>
-
-    <form @submit.prevent="createIngredient">
+    <CreateIngredient :idata="ingredients" />
+    <!-- <form @submit.prevent="createIngredient">
       <div class="input-group mb-3">
         <input
           v-model="editable.name"
@@ -29,7 +29,6 @@
           class="form-control"
           placeholder="Add Name"
           aria-label="Recipient's username"
-          aria-describedby="button-addon2"
         />
         <input
           v-model="editable.quantity"
@@ -38,7 +37,6 @@
           class="form-control"
           placeholder="Add Quantity"
           aria-label="Recipient's username"
-          aria-describedby="button-addon2"
         />
 
         <button
@@ -49,7 +47,7 @@
           Create
         </button>
       </div>
-    </form>
+    </form> -->
   </div>
   <Modal id="editI">
     <template #title>
@@ -102,16 +100,6 @@ export default {
           logger.error(error)
           Pop.toast('error')
         }
-      },
-      async createIngredient() {
-        // try {
-        //   editable.value.recipeId = props.ingredientData.id
-        //   await ingredientsService.createIngredient(editable.value)
-        //   editable.value = {}
-        // } catch (error) {
-        //   logger.error(error)
-        //   Pop.toast('error')
-        // }
       },
       closeModal() {
         try {

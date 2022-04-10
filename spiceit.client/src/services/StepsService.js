@@ -10,6 +10,12 @@ class StepsService {
     AppState.steps = res.data
   }
 
+  async createStep(body) {
+    const res = await api.post("api/steps", body)
+    logger.log(res.data)
+    AppState.steps.push(res.data)
+  }
+
   async deleteStep(id) {
     const res = await api.delete("api/steps/" + id)
     logger.log("delete step", res.data)
