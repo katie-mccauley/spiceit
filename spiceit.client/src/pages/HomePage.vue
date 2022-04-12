@@ -53,6 +53,12 @@
               class="mdi mdi-delete selectable"
               @click="deleteIngredient(i.id)"
             ></i>
+            <i
+              class="mdi mdi-pencil selectable"
+              data-bs-toggle="modal"
+              data-bs-target="#edit"
+              @click="activeIngred(i.id)"
+            ></i>
           </div>
           <CreateIngredient :idata="active" />
         </div>
@@ -67,6 +73,19 @@
       </div>
     </template>
   </Modal>
+  <Modal id="edit">
+    <template #title> More Details</template>
+    <template #body>
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-10">
+            {{ activei.name }}
+          </div>
+          <EditIngredient />
+        </div>
+      </div>
+    </template>
+  </Modal>
 </template>
 
 <script>
@@ -76,6 +95,7 @@ import { recipesService } from "../services/RecipesService"
 import { favoritesService } from "../services/FavoritesService"
 import { AppState } from "../AppState"
 import Pop from "../utils/Pop"
+import { ingredientsService } from "../services/IngredientsService"
 export default {
   name: 'Home',
   setup() {
@@ -113,9 +133,17 @@ export default {
 
         }
       },
+      async activeIngred(id) {
+        try {
+          await ingredientsService.getOne(id)
+        } catch (error) {
+          logger.error(error)
+        }
+      },
       ingredients: computed(() => AppState.ingredients),
       steps: computed(() => AppState.steps),
-      active: computed(() => AppState.activeRecipe)
+      active: computed(() => AppState.activeRecipe),
+      activei: computed(() => AppState.activeIngredient)
     }
   }
 }
