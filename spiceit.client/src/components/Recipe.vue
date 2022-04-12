@@ -1,6 +1,7 @@
 <template>
   <div class="component">
     <div class="row">
+      <i class="mdi mdi-heart selectable" @click="createFav(recipe.id)"></i>
       <img
         class="img-fluid cropped rounded"
         :src="recipe.picture"
@@ -56,6 +57,7 @@ import { ingredientsService } from "../services/IngredientsService"
 import { AppState } from "../AppState"
 import { stepsService } from "../services/StepsService"
 import { recipesService } from "../services/RecipesService"
+import { favoritesService } from "../services/FavoritesService"
 export default {
   props: {
     recipe: {
@@ -99,7 +101,17 @@ export default {
         } catch (error) {
           logger.error(error)
         }
-      }
+      },
+      async createFav(id) {
+        let fav = {
+          accountId: AppState.account.id,
+          recipeId: id,
+
+        }
+
+        await favoritesService.createFav(fav)
+      },
+      account: computed(() => AppState.account)
     }
   }
 }

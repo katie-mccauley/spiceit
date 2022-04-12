@@ -122,7 +122,7 @@ export default {
     watchEffect(async () => {
       try {
         await recipesService.getAllRecipes()
-        await recipesService.getFavs()
+        // await recipesService.getFavs()
       } catch (error) {
         logger.error(error)
       }
@@ -147,7 +147,7 @@ export default {
       },
       async getFavs() {
         try {
-          await favoritesService.getFavs()
+          await favoritesService.getAll()
         } catch (error) {
           logger.error(error)
 

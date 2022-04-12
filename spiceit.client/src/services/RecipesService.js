@@ -30,11 +30,11 @@ class RecipesService {
   }
 
 
-  async getFavs() {
-    const res = await api.get('account/favorites')
-    logger.log("this your favs", res.data)
-    AppState.favs = res.data
-  }
+  // async getFavs() {
+  //   const res = await api.get('account/favorites')
+  //   logger.log("this your favs", res.data)
+  //   AppState.favs = res.data
+  // }
 
 
 }
