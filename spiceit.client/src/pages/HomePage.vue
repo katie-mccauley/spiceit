@@ -67,6 +67,12 @@
           <div class="col-10 text-info" v-for="s in steps" :key="s.id">
             <h3>{{ s.ordr }}: {{ s.body }}</h3>
             <i class="mdi mdi-delete selectable" @click="deleteStep(s.id)"></i>
+            <i
+              class="mdi mdi-pencil selectable"
+              data-bs-toggle="modal"
+              data-bs-target="#edit-step"
+              @click="activeStep(s.id)"
+            ></i>
           </div>
           <CreateStep :sdata="active" />
         </div>
@@ -86,6 +92,19 @@
       </div>
     </template>
   </Modal>
+  <Modal id="edit-step">
+    <template #title> More Details</template>
+    <template #body>
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-10">
+            {{ actives.body }}
+          </div>
+          <EditStep />
+        </div>
+      </div>
+    </template>
+  </Modal>
 </template>
 
 <script>
@@ -96,6 +115,7 @@ import { favoritesService } from "../services/FavoritesService"
 import { AppState } from "../AppState"
 import Pop from "../utils/Pop"
 import { ingredientsService } from "../services/IngredientsService"
+import { stepsService } from "../services/StepsService"
 export default {
   name: 'Home',
   setup() {
@@ -140,10 +160,18 @@ export default {
           logger.error(error)
         }
       },
+      async activeStep(id) {
+        try {
+          await stepsService.getOne(id)
+        } catch (error) {
+          logger.error(error)
+        }
+      },
       ingredients: computed(() => AppState.ingredients),
       steps: computed(() => AppState.steps),
       active: computed(() => AppState.activeRecipe),
-      activei: computed(() => AppState.activeIngredient)
+      activei: computed(() => AppState.activeIngredient),
+      actives: computed(() => AppState.activeStep)
     }
   }
 }
