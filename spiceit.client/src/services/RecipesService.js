@@ -28,6 +28,15 @@ class RecipesService {
     logger.log("get recipe", res.data)
     AppState.activeRecipe = res.data
   }
+
+
+  async getFavs() {
+    const res = await api.get('account/favorites')
+    logger.log("this your favs", res.data)
+    AppState.favs = res.data
+  }
+
+
 }
 
 export const recipesService = new RecipesService()

@@ -78,7 +78,7 @@ export default {
   props: {
     idata: {
       type: Object,
-      required: true
+      required: false
     }
   },
   setup(props) {

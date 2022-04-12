@@ -11,9 +11,9 @@
         <button class="btn btn-outline-primary col-4 col-md-3">search</button>
       </form>
       <div class="col-10 d-flex justify-content-between">
-        <button class="btn-info btn">ALL</button>
+        <button class="btn-info btn" @click="getAll()">ALL</button>
         <button class="btn-info btn">Favorites</button>
-        <button class="btn-info btn">My Posts</button>
+        <button class="btn-info btn" @click="getFavs()">My Posts</button>
       </div>
       <div
         class="col-3 home-card p-2 m-2 bg-white rounded elevation-3 selectable"
@@ -34,20 +34,55 @@
       </div>
     </div>
   </div>
+  <Modal id="create-recipe">
+    <template #title> Create Recipe</template>
+    <template #body><CreateRecipe :recipeData="recipe" /></template>
+  </Modal>
+  <Modal id="more-details">
+    <template #title> More Details</template>
+    <template #body>
+      <div class="container-fluid">
+        <div class="row bg-white text-dark rounded">
+          <!-- <div class="col-10" v-for="i in ingredients" :key="i.id">
+            <h1>{{ i.name }}</h1>
+          </div> -->
+          <h2>The ingredients</h2>
+          <div class="col-10 text-dark" v-for="i in ingredients" :key="i.id">
+            <h3>{{ i.name }}: {{ i.quantity }}</h3>
+            <i
+              class="mdi mdi-delete selectable"
+              @click="deleteIngredient(i.id)"
+            ></i>
+          </div>
+          <CreateIngredient :idata="active" />
+        </div>
+        <div class="row bg-white text-dark rounded mt-2">
+          <h2>The steps for the recipe</h2>
+          <div class="col-10 text-info" v-for="s in steps" :key="s.id">
+            <h3>{{ s.ordr }}: {{ s.body }}</h3>
+            <i class="mdi mdi-delete selectable" @click="deleteStep(s.id)"></i>
+          </div>
+          <CreateStep :sdata="active" />
+        </div>
+      </div>
+    </template>
+  </Modal>
 </template>
 
 <script>
-import { computed, onMounted } from "@vue/runtime-core"
+import { computed, onMounted, watchEffect } from "@vue/runtime-core"
 import { logger } from "../utils/Logger"
 import { recipesService } from "../services/RecipesService"
+import { favoritesService } from "../services/FavoritesService"
 import { AppState } from "../AppState"
 import Pop from "../utils/Pop"
 export default {
   name: 'Home',
   setup() {
-    onMounted(async () => {
+    watchEffect(async () => {
       try {
         await recipesService.getAllRecipes()
+        await recipesService.getFavs()
       } catch (error) {
         logger.error(error)
       }
@@ -62,7 +97,25 @@ export default {
         } catch (error) {
           logger.error(error)
         }
-      }
+      },
+      async getAll() {
+        try {
+          await recipesService.getAllRecipes()
+        } catch (error) {
+          logger.error(error)
+        }
+      },
+      async getFavs() {
+        try {
+          await favoritesService.getFavs()
+        } catch (error) {
+          logger.error(error)
+
+        }
+      },
+      ingredients: computed(() => AppState.ingredients),
+      steps: computed(() => AppState.steps),
+      active: computed(() => AppState.activeRecipe)
     }
   }
 }

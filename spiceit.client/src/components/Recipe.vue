@@ -8,26 +8,24 @@
       />
     </div>
     <h2>{{ recipe.title }}</h2>
-    <CreateIngredient :idata="recipe" />
-    <CreateStep :sdata="recipe" />
     <button
       class="btn btn-success"
       data-bs-toggle="modal"
-      :data-bs-target="'#moredetails' + recipe.id"
+      data-bs-target="#more-details"
       @click="activeRecipe(recipe.id)"
     >
       See more details
     </button>
   </div>
 
-  <Modal :id="'moredetails' + recipe.id">
+  <!-- <Modal :id="'moredetails' + recipe.id">
     <template #title> More Details</template>
     <template #body>
       <div class="container-fluid">
         <div class="row bg-white text-dark rounded">
-          <!-- <div class="col-10" v-for="i in ingredients" :key="i.id">
+          <div class="col-10" v-for="i in ingredients" :key="i.id">
             <h1>{{ i.name }}</h1>
-          </div> -->
+          </div>
           <div class="col-10 text-dark" v-for="i in ingredients" :key="i.id">
             <h2>The ingredients</h2>
             <h3>{{ i.name }}: {{ i.quantity }}</h3>
@@ -36,6 +34,7 @@
               @click="deleteIngredient(i.id)"
             ></i>
           </div>
+          <Ingred />
         </div>
         <div class="row bg-white text-dark rounded">
           <div class="col-10 text-info" v-for="s in steps" :key="s.id">
@@ -46,7 +45,7 @@
         </div>
       </div>
     </template>
-  </Modal>
+  </Modal> -->
 </template>
 
 
@@ -65,14 +64,13 @@ export default {
     }
   },
   setup(props) {
-    watchEffect(async () => {
-      try {
-        await stepsService.getAllSteps(props.recipe.id);
-        await ingredientsService.getAllIngredients(props.recipe.id);
-      } catch (error) {
-        logger.error(error)
-      }
-    })
+    // watchEffect(async () => {
+    //   try {
+
+    //   } catch (error) {
+    //     logger.error(error)
+    //   }
+    // })
     return {
       ingredients: computed(() => AppState.ingredients),
       steps: computed(() => AppState.steps),
@@ -94,7 +92,10 @@ export default {
       },
       async activeRecipe(id) {
         try {
+          logger.log(id, props.recipe)
           await recipesService.activeRecipe(id)
+          await stepsService.getAllSteps(id);
+          await ingredientsService.getAllIngredients(id);
         } catch (error) {
           logger.error(error)
         }

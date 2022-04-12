@@ -40,10 +40,6 @@
       <Login />
     </div>
   </nav>
-  <Modal id="create-recipe">
-    <template #title> Create Recipe</template>
-    <template #body><CreateRecipe :recipeData="recipe" /></template>
-  </Modal>
 </template>
 
 <script>

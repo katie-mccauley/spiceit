@@ -39,7 +39,8 @@ namespace spiceit.Repositories
         r.*, 
         a.*
         FROM recipes r
-        JOIN accounts a WHERE a.id = r.creatorId;
+        JOIN accounts a ON a.id = r.creatorId
+        WHERE r.id = @id;
       ";
       return _db.Query<Recipe, Account, Recipe>(sql, (recipe, account) =>
       {
