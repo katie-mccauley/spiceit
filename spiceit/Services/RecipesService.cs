@@ -14,9 +14,9 @@ namespace spiceit.Services
       _repo = repo;
     }
 
-    internal List<Recipe> GetAll()
+    internal List<Recipe> GetAll(string search)
     {
-      return _repo.GetAll();
+      return _repo.GetAll(search);
     }
 
     internal Recipe Create(Recipe recipeData)
@@ -34,9 +34,8 @@ namespace spiceit.Services
       return _repo.Remove(id);
     }
 
-    internal List<Recipe> GetMine(string userId){
-      List<Recipe> recipes = _repo.GetMine(userId);
-      return recipes;
+    internal List<RecipeViewModel> GetMine(string userId){
+      return _repo.GetMine(userId);;
     }
 
     internal Recipe GetById(int id)

@@ -5,8 +5,8 @@ import { api } from "./AxiosService"
 class RecipesService {
 
 
-  async getAllRecipes() {
-    const res = await api.get('api/recipes')
+  async getAllRecipes(query = "") {
+    const res = await api.get('api/recipes' + query)
     logger.log("All recipes", res.data)
     AppState.recipes = res.data
   }

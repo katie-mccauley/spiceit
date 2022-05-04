@@ -16,6 +16,17 @@
     >
       <span class="navbar-toggler-icon" />
     </button>
+    <div class="col-md-6 justify-content-center align-items-center mt-2 ms-5">
+      <form @submit.prevent="search">
+        <i class="fa fa-search"></i>
+        <input
+          type="text"
+          class="form-control form-input"
+          placeholder="Search anything..."
+          v-model="query"
+        />
+      </form>
+    </div>
     <div class="collapse navbar-collapse" id="navbarText">
       <ul class="navbar-nav me-auto">
         <!-- <li>
@@ -43,12 +54,26 @@
 </template>
 
 <script>
-import { computed } from "@vue/reactivity";
+import { computed, ref } from "@vue/reactivity";
 import { AppState } from "../AppState";
+import { recipesService } from "../services/RecipesService";
+import { logger } from "../utils/Logger";
+import Pop from "../utils/Pop";
 export default {
   setup() {
+    const query = ref("")
     return {
-      recipe: computed(() => AppState.recipes)
+
+      recipe: computed(() => AppState.recipes),
+      query,
+      async search() {
+        try {
+          await recipesService.getAllRecipes('?search=' + query.value)
+        } catch (error) {
+          logger.error(error)
+          Pop.toast(error.message, 'error')
+        }
+      }
     };
   },
 };

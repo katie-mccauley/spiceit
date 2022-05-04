@@ -59,12 +59,13 @@ namespace spiceit.Controllers
 
     [HttpGet("recipes")]
     [Authorize]
-    public async Task<ActionResult<List<Recipe>>> GetMine()
+    public async Task<ActionResult<List<RecipeViewModel>>> GetMine()
     {
       try
       {
         Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
-        return Ok(_rs.GetMine(userInfo.Id));
+        List<RecipeViewModel> recipe = _rs.GetMine(userInfo.Id);
+        return Ok(recipe);
       }
       catch (System.Exception e)
       {

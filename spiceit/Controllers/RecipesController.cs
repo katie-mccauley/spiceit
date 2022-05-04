@@ -28,11 +28,11 @@ namespace spiceit.Controllers
     }
 
     [HttpGet]
-    public ActionResult<List<Recipe>> GetAll()
+    public ActionResult<List<Recipe>> GetAll(string search)
     {
       try
       {
-        List<Recipe> recipes = _rs.GetAll();
+        List<Recipe> recipes = _rs.GetAll(search);
         return Ok(recipes);
       }
       catch (Exception e)

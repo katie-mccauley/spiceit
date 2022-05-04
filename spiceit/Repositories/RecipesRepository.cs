@@ -16,23 +16,25 @@ namespace spiceit.Repositories
       _db = db;
     }
 
-    internal List<Recipe> GetAll()
+    internal List<Recipe> GetAll(string search)
     {
+      search = "%" + search + "%";
       string sql = @"
       SELECT 
       r.*,
       a.*
       FROM recipes r
-      JOIN accounts a WHERE a.id = r.creatorId;
+      JOIN accounts a ON a.id = r.creatorId 
+      WHERE r.title LIKE @search;
       ";
       return _db.Query<Recipe, Account, Recipe>(sql, (recipe, account) =>
       {
         recipe.Creator = account;
         return recipe;
-      }).ToList();
+      }, new {search}).ToList();
     }
 
-    internal List<Recipe> GetMine(string userId)
+    internal List<RecipeViewModel> GetMine(string userId)
     {
       string sql = @"
       SELECT
@@ -42,11 +44,12 @@ namespace spiceit.Repositories
       JOIN accounts a ON a.id = r.creatorId
       WHERE r.creatorId = @userId;
       ";
-      return _db.Query<Recipe, Account, Recipe>(sql, (r, a) =>
+      List<RecipeViewModel> recipes = _db.Query<RecipeViewModel, Account, RecipeViewModel>(sql, (r, a) =>
       {
         r.Creator = a;
         return r;
-      }, new {userId}).ToList();
+      }, new {userId}).ToList<RecipeViewModel>();
+      return recipes;
     }
 
     internal Recipe GetById(int id)
