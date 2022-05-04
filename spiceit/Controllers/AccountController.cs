@@ -43,7 +43,6 @@ namespace spiceit.Controllers
     }
 
     [HttpGet("favorites")]
-    [Authorize]
     public async Task<ActionResult<List<RecipeViewModel>>> GetFav()
     {
       try
@@ -55,6 +54,23 @@ namespace spiceit.Controllers
       catch (System.Exception e)
       {
         return BadRequest(e.Message);
+      }
+    }
+
+    [HttpGet("recipes")]
+    [Authorize]
+    public async Task<ActionResult<List<Recipe>>> GetMine()
+    {
+      try
+      {
+        Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
+        return Ok(_rs.GetMine(userInfo.Id));
+      }
+      catch (System.Exception e)
+      {
+        
+        return BadRequest(e.Message);
+        
       }
     }
   }

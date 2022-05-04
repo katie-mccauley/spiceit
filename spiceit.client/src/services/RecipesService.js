@@ -11,6 +11,11 @@ class RecipesService {
     AppState.recipes = res.data
   }
 
+  async getMine() {
+    const res = await api.get('account/recipes')
+    logger.log("All mine recipes", res.data)
+    AppState.mine = res.data
+  }
   async createRecipe(body) {
     const res = await api.post('api/recipes', body)
     logger.log("this is created dta", res.data)
@@ -30,11 +35,11 @@ class RecipesService {
   }
 
 
-  // async getFavs() {
-  //   const res = await api.get('account/favorites')
-  //   logger.log("this your favs", res.data)
-  //   AppState.favs = res.data
-  // }
+  async getFavs() {
+    const res = await api.get('account/favorites')
+    logger.log("this your favs", res.data)
+    AppState.favs = res.data
+  }
 
 
 }

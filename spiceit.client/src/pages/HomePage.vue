@@ -12,8 +12,8 @@
       </form>
       <div class="col-10 d-flex justify-content-between">
         <button class="btn-info btn" @click="getAll()">ALL</button>
-        <button class="btn-info btn">Favorites</button>
-        <button class="btn-info btn" @click="getFavs()">My Posts</button>
+        <button class="btn-info btn" @click="getFavs()">Favorites</button>
+        <button class="btn-info btn" @click="getMine()">My Posts</button>
       </div>
       <div
         class="col-3 home-card p-2 m-2 bg-white rounded elevation-3 selectable"
@@ -122,7 +122,8 @@ export default {
     watchEffect(async () => {
       try {
         await recipesService.getAllRecipes()
-        // await recipesService.getFavs()
+        await recipesService.getFavs()
+        await recipesService.getMine()
       } catch (error) {
         logger.error(error)
       }
@@ -158,6 +159,14 @@ export default {
           await ingredientsService.getOne(id)
         } catch (error) {
           logger.error(error)
+        }
+      },
+      async getMine() {
+        try {
+          await recipesService.getMine()
+        } catch (error) {
+          logger.error(error)
+
         }
       },
       async activeStep(id) {

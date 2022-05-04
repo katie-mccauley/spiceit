@@ -34,6 +34,11 @@ namespace spiceit.Services
       return _repo.Remove(id);
     }
 
+    internal List<Recipe> GetMine(string userId){
+      List<Recipe> recipes = _repo.GetMine(userId);
+      return recipes;
+    }
+
     internal Recipe GetById(int id)
     {
       Recipe foundRecipe = _repo.GetById(id);
