@@ -1,22 +1,58 @@
 <template>
-  <div class="component">
-    <div class="row">
-      <i class="mdi mdi-heart selectable" @click="createFav(recipe.id)"></i>
-      <img
-        class="img-fluid cropped rounded"
-        :src="recipe.picture"
-        alt="recipe picture"
-      />
-    </div>
-    <h2>{{ recipe.title }}</h2>
-    <button
-      class="btn btn-success"
-      data-bs-toggle="modal"
-      data-bs-target="#more-details"
-      @click="activeRecipe(recipe.id)"
+  <div
+    data-bs-toggle="modal"
+    data-bs-target="#more-details"
+    @click="activeRecipe(recipe.id)"
+    class="card selectable border border-3 rounded bg-white"
+  >
+    <img
+      class="img-fluid cropped rounded"
+      :src="recipe.picture"
+      alt="recipe picture"
+    />
+    <div
+      class="
+        card-img-overlay
+        d-flex
+        flex-column
+        justify-content-end
+        backgroundfix
+        pb-md-2 pb-0
+      "
     >
-      See more details
-    </button>
+      <div class="row justify-content-md-around">
+        <div class="col-12 d-flex justify-content-end">
+          <button
+            @click="deleteRecipe(recipe.id)"
+            type="button"
+            title="Delete Recipe"
+            class="btn-close btn-close-white me-2"
+            aria-label="Close"
+          ></button>
+        </div>
+      </div>
+      <div class="row justify-content-md-around">
+        <div class="col-6">
+          <h2 class="text-light">{{ recipe.title }}</h2>
+        </div>
+        <div class="col-3">
+          <h3 class="m-0">
+            <i
+              class="mdi mdi-heart text-secondary selectable"
+              @click="createFav(recipe.id)"
+            ></i>
+          </h3>
+        </div>
+        <!-- <div class="col-5">
+          <button
+            class="btn btn-success"
+            
+          >
+            See more details
+          </button>
+        </div> -->
+      </div>
+    </div>
   </div>
 
   <!-- <Modal :id="'moredetails' + recipe.id">
@@ -58,6 +94,7 @@ import { AppState } from "../AppState"
 import { stepsService } from "../services/StepsService"
 import { recipesService } from "../services/RecipesService"
 import { favoritesService } from "../services/FavoritesService"
+import Pop from "../utils/Pop"
 export default {
   props: {
     recipe: {
@@ -111,6 +148,15 @@ export default {
 
         await favoritesService.createFav(fav)
       },
+      async deleteRecipe(id) {
+        try {
+          if (await Pop.confirm()) {
+            await recipesService.deleteRecipe(id)
+          }
+        } catch (error) {
+          logger.error(error)
+        }
+      },
       account: computed(() => AppState.account)
     }
   }
@@ -124,5 +170,13 @@ export default {
   position: center;
   display: cover;
   object-fit: cover;
+}
+
+.backgroundfix {
+  background: linear-gradient(
+    180.45deg,
+    rgba(0, 0, 0, 0) 67.72%,
+    rgba(0, 0, 0, 0.53) 99.61%
+  );
 }
 </style>

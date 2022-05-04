@@ -23,12 +23,8 @@
     </div>
 
     <div class="row">
-      <div
-        class="col-3 home-card p-2 m-2 bg-white rounded elevation-3 selectable"
-        v-for="r in recipes"
-        :key="r.id"
-      >
-        <div class="row justify-content-end">
+      <div class="col-2" v-for="r in recipes" :key="r.id">
+        <!-- <div class="row justify-content-end">
           <button
             @click="deleteRecipe(r.id)"
             type="button"
@@ -36,7 +32,7 @@
             class="btn-close btn-close-dark me-2"
             aria-label="Close"
           ></button>
-        </div>
+        </div> -->
 
         <Recipe :recipe="r" />
       </div>
