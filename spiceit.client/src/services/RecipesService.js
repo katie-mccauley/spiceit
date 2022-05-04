@@ -14,7 +14,7 @@ class RecipesService {
   async getMine() {
     const res = await api.get('account/recipes')
     logger.log("All mine recipes", res.data)
-    AppState.mine = res.data
+    AppState.recipes = res.data
   }
   async createRecipe(body) {
     const res = await api.post('api/recipes', body)
