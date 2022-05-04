@@ -1,11 +1,28 @@
 <template>
   <div class="container-fluid">
-    <div class="row">
-      <div class="col-10 d-flex justify-content-between">
-        <button class="btn-info btn" @click="getAll()">ALL</button>
-        <button class="btn-info btn" @click="getFavs()">Favorites</button>
-        <button class="btn-info btn" @click="getMine()">My Posts</button>
+    <div class="row justify-content-center">
+      <div
+        class="
+          col-3
+          bg-white
+          p-3
+          shadow
+          rounded
+          d-flex
+          justify-content-around
+          elevation-3
+          navbtn-y
+        "
+      >
+        <h3><a class="greentext selectable" @click="getAll()">ALL</a></h3>
+        <h3>
+          <a class="greentext selectable" @click="getFavs()">Favorites</a>
+        </h3>
+        <h3><a class="greentext selectable" @click="getMine()">My Posts</a></h3>
       </div>
+    </div>
+
+    <div class="row">
       <div
         class="col-3 home-card p-2 m-2 bg-white rounded elevation-3 selectable"
         v-for="r in recipes"
@@ -194,5 +211,13 @@ export default {
       object-position: center;
     }
   }
+}
+
+.greentext {
+  color: rgba(33, 150, 83, 1);
+}
+
+.navbtn-y {
+  transform: translateY(-40%);
 }
 </style>

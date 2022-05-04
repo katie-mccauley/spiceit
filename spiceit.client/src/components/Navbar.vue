@@ -6,6 +6,7 @@
       px-3
       bg-image
       align-items-start
+      shadow
     "
   >
     <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
@@ -110,5 +111,33 @@ a:hover {
   background-position: center;
   object-fit: cover;
   backdrop-filter: rgba(0, 0, 0, 0);
+}
+.form .fa-search {
+  position: absolute;
+  top: 20px;
+  left: 100px;
+  color: #9ca3af;
+}
+.form span {
+  right: 17px;
+  top: 13px;
+  padding: 2px;
+  border-left: 1px solid #d1d5db;
+}
+.left-pan {
+  padding-left: 7px;
+}
+.left-pan i {
+  padding-left: 10px;
+}
+.form-input {
+  height: 55px;
+  text-indent: 33px;
+  border-radius: 10px;
+  max-width: 500px;
+}
+.form-input:focus {
+  box-shadow: none;
+  border: none;
 }
 </style>
