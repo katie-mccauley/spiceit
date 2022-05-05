@@ -143,7 +143,7 @@
           <!-- <div class="col-10">
             {{ actives.body }}
           </div> -->
-          <EditStep />
+          <EditStep :editStep="actives" />
         </div>
       </div>
     </template>

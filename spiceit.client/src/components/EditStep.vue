@@ -47,9 +47,21 @@ import { AppState } from "../AppState"
 import { logger } from "../utils/Logger"
 import { Modal } from "bootstrap"
 import { stepsService } from "../services/StepsService"
+import { watchEffect } from "@vue/runtime-core"
 export default {
-  setup() {
+  props: {
+    editStep: {
+      type: Object,
+      required: true,
+      default: {}
+    }
+  },
+  setup(props) {
     const editable = ref({})
+    watchEffect(() => {
+      logger.log('this is the watcheffect');
+      editable.value = props.editStep;
+    })
     return {
       editable,
       async editStep() {
