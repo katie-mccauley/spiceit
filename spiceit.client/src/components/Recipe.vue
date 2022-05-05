@@ -66,35 +66,6 @@
       </div>
     </div>
   </div>
-
-  <!-- <Modal :id="'moredetails' + recipe.id">
-    <template #title> More Details</template>
-    <template #body>
-      <div class="container-fluid">
-        <div class="row bg-white text-dark rounded">
-          <div class="col-10" v-for="i in ingredients" :key="i.id">
-            <h1>{{ i.name }}</h1>
-          </div>
-          <div class="col-10 text-dark" v-for="i in ingredients" :key="i.id">
-            <h2>The ingredients</h2>
-            <h3>{{ i.name }}: {{ i.quantity }}</h3>
-            <i
-              class="mdi mdi-delete selectable"
-              @click="deleteIngredient(i.id)"
-            ></i>
-          </div>
-          <Ingred />
-        </div>
-        <div class="row bg-white text-dark rounded">
-          <div class="col-10 text-info" v-for="s in steps" :key="s.id">
-            <h2>The steps for the recipe</h2>
-            <h3>{{ s.ordr }}: {{ s.body }}</h3>
-            <i class="mdi mdi-delete selectable" @click="deleteStep(s.id)"></i>
-          </div>
-        </div>
-      </div>
-    </template>
-  </Modal> -->
 </template>
 
 

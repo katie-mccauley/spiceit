@@ -54,11 +54,52 @@
     ></template>
     <template #body>
       <div class="container-fluid">
-        <div class="row bg-white text-dark rounded">
-          <!-- <div class="col-10" v-for="i in ingredients" :key="i.id">
+        <div class="row text-dark">
+          <div class="col-md-6 p-0">
+            <img
+              :src="active.picture"
+              class="w-100 object-fit-cover heightimg img-fluid h-100"
+              alt=""
+            />
+          </div>
+          <div class="col-md-6">
+            <h2>The ingredients</h2>
+            <div class="col-10 text-dark" v-for="i in ingredients" :key="i.id">
+              <h3>{{ i.name }}: {{ i.quantity }}</h3>
+              <i
+                class="mdi mdi-delete selectable"
+                @click="deleteIngredient(i.id)"
+              ></i>
+              <i
+                class="mdi mdi-pencil selectable"
+                data-bs-toggle="modal"
+                data-bs-target="#edit"
+                @click="activeIngred(i.id)"
+              ></i>
+            </div>
+            <CreateIngredient :idata="active" />
+            <h2>The steps for the recipe</h2>
+            <div class="col-10 text-info" v-for="s in steps" :key="s.id">
+              <h3>{{ s.ordr }}: {{ s.body }}</h3>
+              <i
+                class="mdi mdi-delete selectable"
+                @click="deleteStep(s.id)"
+              ></i>
+              <i
+                class="mdi mdi-pencil selectable"
+                data-bs-toggle="modal"
+                data-bs-target="#edit-step"
+                @click="activeStep(s.id)"
+              ></i>
+            </div>
+            <CreateStep :sdata="active" />
+          </div>
+        </div>
+        <!-- <div class="row text-dark"> -->
+        <!-- <div class="col-10" v-for="i in ingredients" :key="i.id">
             <h1>{{ i.name }}</h1>
           </div> -->
-          <h2>The ingredients</h2>
+        <!-- <h2>The ingredients</h2>
           <div class="col-10 text-dark" v-for="i in ingredients" :key="i.id">
             <h3>{{ i.name }}: {{ i.quantity }}</h3>
             <i
@@ -84,8 +125,8 @@
               @click="activeStep(s.id)"
             ></i>
           </div>
-          <CreateStep :sdata="active" />
-        </div>
+          <CreateStep :sdata="active" /> -->
+        <!-- </div> -->
         <!-- <div class="row bg-white text-dark rounded mt-2">
           
         </div> -->
@@ -236,5 +277,13 @@ export default {
 
 .navbtn-y {
   transform: translateY(-40%);
+}
+
+.heightimg {
+  height: 400px;
+}
+
+.object-fit-cover {
+  object-fit: cover;
 }
 </style>
