@@ -1,10 +1,5 @@
 <template>
-  <div
-    data-bs-toggle="modal"
-    data-bs-target="#more-details"
-    @click="activeRecipe(recipe.id)"
-    class="card selectable border border-3 rounded bg-white"
-  >
+  <div class="card selectable border border-3 rounded bg-white">
     <img
       class="img-fluid cropped rounded"
       :src="recipe.picture"
@@ -20,7 +15,7 @@
         pb-md-2 pb-0
       "
     >
-      <div class="row justify-content-md-around">
+      <!-- <div class="row justify-content-md-around">
         <div class="col-12 d-flex justify-content-end">
           <button
             @click="deleteRecipe(recipe.id)"
@@ -30,15 +25,32 @@
             aria-label="Close"
           ></button>
         </div>
-      </div>
+      </div> -->
       <div class="row justify-content-md-around">
-        <div class="col-6">
-          <h2 class="text-light">{{ recipe.title }}</h2>
+        <div class="col-10">
+          <h2
+            data-bs-toggle="modal"
+            data-bs-target="#more-details"
+            @click="activeRecipe(recipe.id)"
+            class="text-light"
+          >
+            {{ recipe.title }}
+          </h2>
         </div>
-        <div class="col-3">
+        <!-- <div class="col-4">
+          <button
+            class="btn btn-outline-light"
+            data-bs-toggle="modal"
+            data-bs-target="#more-details"
+            @click="activeRecipe(recipe.id)"
+          >
+            Info
+          </button>
+        </div> -->
+        <div class="col-2">
           <h3 class="m-0">
             <i
-              class="mdi mdi-heart text-secondary selectable"
+              class="mdi mdi-heart text-danger selectable m-0 p-0"
               @click="createFav(recipe.id)"
             ></i>
           </h3>

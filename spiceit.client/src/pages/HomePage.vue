@@ -3,7 +3,7 @@
     <div class="row justify-content-center">
       <div
         class="
-          col-3
+          col-md-4 col-10
           bg-white
           p-3
           shadow
@@ -23,7 +23,7 @@
     </div>
 
     <div class="row">
-      <div class="col-2" v-for="r in recipes" :key="r.id">
+      <div class="col-md-2 col-10" v-for="r in recipes" :key="r.id">
         <!-- <div class="row justify-content-end">
           <button
             @click="deleteRecipe(r.id)"
@@ -43,7 +43,15 @@
     <template #body><CreateRecipe :recipeData="recipe" /></template>
   </Modal>
   <Modal id="more-details">
-    <template #title> More Details</template>
+    <template #title>
+      <h2>
+        {{ active.title }}
+        <i
+          title="delete ingredient"
+          @click="deleteRecipe(active.id)"
+          class="mdi mdi-delete text-danger"
+        ></i></h2
+    ></template>
     <template #body>
       <div class="container-fluid">
         <div class="row bg-white text-dark rounded">
@@ -65,8 +73,6 @@
             ></i>
           </div>
           <CreateIngredient :idata="active" />
-        </div>
-        <div class="row bg-white text-dark rounded mt-2">
           <h2>The steps for the recipe</h2>
           <div class="col-10 text-info" v-for="s in steps" :key="s.id">
             <h3>{{ s.ordr }}: {{ s.body }}</h3>
@@ -80,6 +86,9 @@
           </div>
           <CreateStep :sdata="active" />
         </div>
+        <!-- <div class="row bg-white text-dark rounded mt-2">
+          
+        </div> -->
       </div>
     </template>
   </Modal>
@@ -120,6 +129,7 @@ import { AppState } from "../AppState"
 import Pop from "../utils/Pop"
 import { ingredientsService } from "../services/IngredientsService"
 import { stepsService } from "../services/StepsService"
+import { Modal } from "bootstrap"
 export default {
   name: 'Home',
   setup() {
@@ -178,6 +188,17 @@ export default {
           await stepsService.getOne(id)
         } catch (error) {
           logger.error(error)
+        }
+      },
+      async deleteRecipe(id) {
+        try {
+          if (await Pop.confirm()) {
+            await recipesService.deleteRecipe(id)
+            Modal.getOrCreateInstance(document.getElementById('more-details')).hide()
+          }
+
+        } catch (error) {
+          logger.error
         }
       },
       ingredients: computed(() => AppState.ingredients),

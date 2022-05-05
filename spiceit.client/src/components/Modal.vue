@@ -1,17 +1,14 @@
 <template>
-  <div
-    class="modal fade"
-    tabindex="-1"
-    role="dialog"
-    aria-labelledby="modelTitleId"
-    aria-hidden="true"
-    id="form-modal"
-  >
-    <div class="modal-dialog modal-lg" role="document">
-      <div class="modal-content bg-transparent border-0 text-light">
+  <div class="modal fade" tabindex="-1">
+    <div
+      class="
+        modal-dialog modal-xl modal-dialog-centered modal-fullscreen-md-down
+      "
+    >
+      <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">
-            <slot name="title"><!--title slot--></slot>
+            <slot name="title"></slot>
           </h5>
           <button
             type="button"
@@ -20,26 +17,10 @@
             aria-label="Close"
           ></button>
         </div>
-        <div class="modal-body">
-          <slot name="body"><!--body slot--></slot>
-        </div>
-        <div class="modal-footer">
-          <slot name="footer"><!--footer slot--></slot>
+        <div class="modal-body p-md-0">
+          <slot name="body"></slot>
         </div>
       </div>
     </div>
   </div>
 </template>
-
-
-<script>
-export default {
-  setup() {
-    return {}
-  }
-}
-</script>
-
-
-<style lang="scss" scoped>
-</style>
