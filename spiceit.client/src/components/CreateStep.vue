@@ -6,36 +6,36 @@
       justify-content-center
       elevation-3
       shadow
-      col-8
-      p-2
-      m-5
+      col-12
+      p-1
+      rounded-bottom
     "
     @submit.prevent="createStep"
   >
-    <div class="col-md-4 mb-2">
-      <label for="" class="form-label">Order: </label>
-      <input
-        v-model="editable.ordr"
-        required
-        type="number"
-        class="form-control"
-        aria-describedby="helpId"
-        placeholder="location....."
-      />
-    </div>
-    <div class="col-md-4 mb-2">
-      <label for="" class="form-label">Body: </label>
-      <input
-        v-model="editable.body"
-        required
-        type="text"
-        class="form-control"
-        aria-describedby="helpId"
-        placeholder="location....."
-      />
-    </div>
-    <div class="col-12 d-flex justify-content-end">
-      <button class="btn btn-primary">create</button>
+    <div class="row">
+      <div class="col-3">
+        <input
+          v-model="editable.ordr"
+          required
+          type="number"
+          class="form-control"
+          aria-describedby="helpId"
+          placeholder="Order"
+        />
+      </div>
+      <div class="col-6">
+        <input
+          v-model="editable.body"
+          required
+          type="text"
+          class="form-control"
+          aria-describedby="helpId"
+          placeholder="Body"
+        />
+      </div>
+      <div class="col-2 d-flex justify-content-end align-items-end">
+        <button class="btn p-0 m-0"><h4>+</h4></button>
+      </div>
     </div>
   </form>
 </template>

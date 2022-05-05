@@ -62,7 +62,7 @@
               alt=""
             />
           </div>
-          <div class="col-md-4">
+          <div class="col-md-4 m-2">
             <h2>The ingredients</h2>
             <div class="col-12 text-dark bg-g rounded shadow">
               <div class="row p-2">
@@ -90,22 +90,33 @@
               <CreateIngredient :idata="active" />
             </div>
           </div>
-          <div class="col-md-4">
+          <div class="col-md-4 m-2">
             <h2>The steps for the recipe</h2>
-            <div class="col-12 text-info" v-for="s in steps" :key="s.id">
-              <h3>{{ s.ordr }}: {{ s.body }}</h3>
-              <i
-                class="mdi mdi-delete selectable"
-                @click="deleteStep(s.id)"
-              ></i>
-              <i
-                class="mdi mdi-pencil selectable"
-                data-bs-toggle="modal"
-                data-bs-target="#edit-step"
-                @click="activeStep(s.id)"
-              ></i>
+            <div class="col-12 text-dark bg-g rounded shadow">
+              <div class="row p-2">
+                <div class="col-9">
+                  <h5 v-for="s in steps" :key="s.id">
+                    {{ s.ordr }}: {{ s.body }}
+                  </h5>
+                </div>
+                <div class="col-2 mt-2">
+                  <h6 v-for="s in steps" :key="s.id">
+                    <i
+                      class="mdi mdi-delete selectable"
+                      @click="deleteStep(s.id)"
+                    ></i>
+                    <i
+                      class="mdi mdi-pencil selectable"
+                      data-bs-toggle="modal"
+                      data-bs-target="#edit-step"
+                      @click="activeStep(s.id)"
+                    ></i>
+                  </h6>
+                </div>
+              </div>
+
+              <CreateStep :sdata="active" />
             </div>
-            <CreateStep :sdata="active" />
           </div>
         </div>
       </div>
