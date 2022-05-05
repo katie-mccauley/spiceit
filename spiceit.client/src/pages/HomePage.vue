@@ -55,31 +55,35 @@
     <template #body>
       <div class="container-fluid">
         <div class="row text-dark">
-          <div class="col-md-6 p-0">
+          <div class="col-md-3 p-0">
             <img
               :src="active.picture"
               class="w-100 object-fit-cover heightimg img-fluid h-100"
               alt=""
             />
           </div>
-          <div class="col-md-6">
+          <div class="col-md-4">
             <h2>The ingredients</h2>
-            <div class="col-10 text-dark" v-for="i in ingredients" :key="i.id">
-              <h3>{{ i.name }}: {{ i.quantity }}</h3>
-              <i
-                class="mdi mdi-delete selectable"
-                @click="deleteIngredient(i.id)"
-              ></i>
-              <i
-                class="mdi mdi-pencil selectable"
-                data-bs-toggle="modal"
-                data-bs-target="#edit"
-                @click="activeIngred(i.id)"
-              ></i>
+            <div class="col-12 text-dark bg-g ro8unded shadow">
+              <h3 v-for="i in ingredients" :key="i.id">
+                {{ i.name }}: {{ i.quantity }}
+                <i
+                  class="mdi mdi-delete selectable"
+                  @click="deleteIngredient(i.id)"
+                ></i>
+                <i
+                  class="mdi mdi-pencil selectable"
+                  data-bs-toggle="modal"
+                  data-bs-target="#edit"
+                  @click="activeIngred(i.id)"
+                ></i>
+              </h3>
+              <CreateIngredient :idata="active" />
             </div>
-            <CreateIngredient :idata="active" />
+          </div>
+          <div class="col-md-4">
             <h2>The steps for the recipe</h2>
-            <div class="col-10 text-info" v-for="s in steps" :key="s.id">
+            <div class="col-12 text-info" v-for="s in steps" :key="s.id">
               <h3>{{ s.ordr }}: {{ s.body }}</h3>
               <i
                 class="mdi mdi-delete selectable"
@@ -269,6 +273,10 @@ export default {
       object-position: center;
     }
   }
+}
+
+.bg-g {
+  background-color: #e9eaec;
 }
 
 .greentext {
