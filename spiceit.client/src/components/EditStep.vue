@@ -20,7 +20,7 @@
         type="number"
         class="form-control"
         aria-describedby="helpId"
-        placeholder="location....."
+        placeholder="Order"
       />
     </div>
     <div class="col-md-4 mb-2">
@@ -31,7 +31,7 @@
         type="text"
         class="form-control"
         aria-describedby="helpId"
-        placeholder="location....."
+        placeholder="Body"
       />
     </div>
     <div class="col-12 d-flex justify-content-end">

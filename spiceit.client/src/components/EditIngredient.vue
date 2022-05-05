@@ -46,7 +46,7 @@
         type="text"
         class="form-control"
         aria-describedby="helpId"
-        placeholder="location....."
+        placeholder="Name"
       />
     </div>
     <div class="col-md-4 mb-2">
@@ -57,11 +57,11 @@
         type="text"
         class="form-control"
         aria-describedby="helpId"
-        placeholder="location....."
+        placeholder="Quantity"
       />
     </div>
     <div class="col-12 d-flex justify-content-end">
-      <button class="btn btn-info">Edit</button>
+      <button class="btn btn-primary">Edit</button>
     </div>
   </form>
 </template>
@@ -75,10 +75,22 @@ import { ingredientsService } from "../services/IngredientsService"
 import { Modal } from "bootstrap"
 import { useRoute } from "vue-router"
 import { AppState } from "../AppState"
+import { watchEffect } from "@vue/runtime-core"
 export default {
-  setup() {
-    const editable = ref({})
-    const route = useRoute()
+  props: {
+    edit: {
+      type: Object,
+      required: false,
+      default: {},
+    }
+  },
+  setup(props) {
+    const editable = ref({});
+    const route = useRoute();
+    watchEffect(() => {
+      logger.log('this is the watcheffect');
+      editable.value = props.edit;
+    })
     return {
       editable,
       async editIngredient() {

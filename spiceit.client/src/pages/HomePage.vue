@@ -122,32 +122,32 @@
       </div>
     </template>
   </Modal>
-  <Modal id="edit">
-    <template #title> More Details</template>
+  <ModalForm id="edit">
+    <template #title> Edit Ingredient</template>
     <template #body>
       <div class="container-fluid">
         <div class="row">
-          <div class="col-10">
+          <!-- <div class="col-10">
             {{ activei.name }}
-          </div>
-          <EditIngredient />
+          </div> -->
+          <EditIngredient :edit="activei" />
         </div>
       </div>
     </template>
-  </Modal>
-  <Modal id="edit-step">
-    <template #title> More Details</template>
+  </ModalForm>
+  <ModalForm id="edit-step">
+    <template #title>Edit Step</template>
     <template #body>
       <div class="container-fluid">
         <div class="row">
-          <div class="col-10">
+          <!-- <div class="col-10">
             {{ actives.body }}
-          </div>
+          </div> -->
           <EditStep />
         </div>
       </div>
     </template>
-  </Modal>
+  </ModalForm>
 </template>
 
 <script>
