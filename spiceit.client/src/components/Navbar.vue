@@ -48,13 +48,13 @@
           </router-link>
         </li> -->
         <li>
-          <!-- <h1>
+          <h1>
             <i
               data-bs-toggle="modal"
               data-bs-target="#create-recipe"
               class="mdi mdi-plus selectable"
             ></i>
-          </h1> -->
+          </h1>
         </li>
       </ul>
       <!-- LOGIN COMPONENT HERE -->

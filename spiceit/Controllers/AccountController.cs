@@ -69,9 +69,9 @@ namespace spiceit.Controllers
       }
       catch (System.Exception e)
       {
-        
+
         return BadRequest(e.Message);
-        
+
       }
     }
   }
