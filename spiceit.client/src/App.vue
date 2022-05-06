@@ -5,7 +5,7 @@
   <main>
     <router-view />
   </main>
-  <div class="row justify-content-end me-3">
+  <div class="row justify-content-end me-3 mb-4">
     <div class="col-1 m-2">
       <button
         data-bs-toggle="modal"
@@ -17,11 +17,11 @@
     </div>
   </div>
 
-  <footer>
+  <!-- <footer>
     <div class="bg-dark text-light text-center p-4">
-      Made with 💖 by CodeWorks
+      Made with 💖 by Katie McCauley
     </div>
-  </footer>
+  </footer> -->
 </template>
 
 <script>
