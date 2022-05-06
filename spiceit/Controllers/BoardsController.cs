@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using CodeWorks.Auth0Provider;
 using Microsoft.AspNetCore.Authorization;
@@ -62,6 +63,23 @@ namespace spiceit.Controllers
       {
         Profile userInfo = await HttpContext.GetUserInfoAsync<Profile>();
         return _bs.Remove(id, userInfo.Id);
+      }
+      catch (Exception e)
+      {
+
+        return BadRequest(e.Message);
+
+      }
+    }
+
+    [HttpGet("{id}/recipes")]
+    public async Task<ActionResult<List<BoardViewModel>>> GetRecipesByBoardId(int id)
+    {
+      try
+      {
+        Profile userInfo = await HttpContext.GetUserInfoAsync<Profile>();
+        List<BoardViewModel> recipes = _bs.GetRecipesByBoardId(id, userInfo);
+        return Ok(recipes);
       }
       catch (Exception e)
       {

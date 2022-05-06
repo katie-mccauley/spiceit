@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using Dapper;
@@ -58,6 +59,26 @@ namespace spiceit.Repositories
         return "Board is deleted";
       }
       throw new Exception("there is no rows effected for deleting");
+    }
+
+    internal List<BoardViewModel> GetRecipesByBoardId(int id)
+    {
+      string sql = @"SELECT 
+        r.*, 
+        a.*, 
+        p.*
+        FROM pins p
+        JOIN recipes r ON r.id = p.recipeId
+        JOIN accounts a ON a.id = r.creatorId
+        WHERE p.boardId = @id;
+      ";
+      List<BoardViewModel> vaults = _db.Query<BoardViewModel, Account, Pin, BoardViewModel>(sql, (viewmodel, a, pin) =>
+      {
+        viewmodel.PinId = pin.Id;
+        viewmodel.Creator = a;
+        return viewmodel;
+      }, new { id }).ToList<BoardViewModel>();
+      return vaults;
     }
   }
 }

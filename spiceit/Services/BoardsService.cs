@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using spiceit.Models;
 using spiceit.Repositories;
@@ -43,6 +44,12 @@ namespace spiceit.Services
 
       }
       return _repo.Remove(id);
+    }
+
+    internal List<BoardViewModel> GetRecipesByBoardId(int id, object userId)
+    {
+      Board found = _repo.GetById(id);
+      return _repo.GetRecipesByBoardId(id);
     }
   }
 }
