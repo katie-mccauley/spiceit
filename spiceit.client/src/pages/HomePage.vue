@@ -183,6 +183,15 @@ export default {
           logger.error(error)
         }
       },
+      async deleteStep(id) {
+        try {
+          if (await Pop.confirm()) {
+            await stepsService.deleteStep(id)
+          }
+        } catch (error) {
+          logger.error(error)
+        }
+      },
       async getAll() {
         try {
           await recipesService.getAllRecipes()

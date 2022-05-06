@@ -35,6 +35,23 @@ CREATE TABLE IF NOT EXISTS steps(
 	FOREIGN KEY(recipeId) REFERENCES recipes(id) ON DELETE CASCADE
 ) default charset utf8;
 
+CREATE TABLE IF NOT EXISTS boards(
+	id INT NOT NULL AUTO_INCREMENT primary key COMMENT 'primary key',
+	creatorId VARCHAR(255) NOT NULL,
+	name TEXT NOT NULL,
+	description TEXT NOT NULL,
+	img TEXT NOT NULL
+) default charset utf8;
+
+CREATE TABLE IF NOT EXISTS pins(
+	id INT NOT NULL AUTO_INCREMENT primary key COMMENT 'primary key',
+	creatorId VARCHAR(255) NOT NULL,
+	boardId INT NOT NULL,
+	recipeId INT NOT NULL,
+	FOREIGN KEY (boardId) REFERENCES boards(id) ON DELETE CASCADE,
+	FOREIGN KEY (recipeId) REFERENCES recipes(id) ON DELETE CASCADE
+) default charset utf8;
+
 CREATE TABLE IF NOT EXISTS favorites(
 	id INT AUTO_INCREMENT primary key,
 	accountId VARCHAR(255) NOT NULL,
