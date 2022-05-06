@@ -39,5 +39,22 @@ namespace spiceit.Repositories
         return b;
       }, new { id }).ToList();
     }
+
+    internal List<Recipe> GetRecipesByUserId(string id)
+    {
+      string sql = @"
+      SELECT
+      r.*,
+      a.*
+      FROM recipes r
+      JOIN accounts a ON a.id = r.creatorId
+      WHERE r.creatorId = @id;
+      ";
+      return _db.Query<Recipe, Account, Recipe>(sql, (r, a) =>
+      {
+        r.Creator = a;
+        return r;
+      }, new { id }).ToList();
+    }
   }
 }

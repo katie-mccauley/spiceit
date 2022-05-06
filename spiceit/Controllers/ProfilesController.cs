@@ -49,5 +49,14 @@ namespace spiceit.Controllers
         return BadRequest(e.Message);
       }
     }
+
+    [HttpGet("{id}/recipes")]
+    [Authorize]
+    public async Task<ActionResult<List<Recipe>>> GetRecipesByUserId(string id)
+    {
+      Profile userInfo = await HttpContext.GetUserInfoAsync<Profile>();
+      List<Recipe> recipe = _ps.GetRecipesByUserId(id);
+      return Ok(recipe);
+    }
   }
 }

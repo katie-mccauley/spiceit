@@ -29,5 +29,11 @@ namespace spiceit.Services
       List<Board> board = _repo.GetBoardsByUserId(id);
       return board;
     }
+
+    internal List<Recipe> GetRecipesByUserId(string id)
+    {
+      List<Recipe> recipe = _repo.GetRecipesByUserId(id);
+      return recipe;
+    }
   }
 }
