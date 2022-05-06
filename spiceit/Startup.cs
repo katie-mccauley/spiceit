@@ -49,6 +49,8 @@ namespace spiceit
       services.AddTransient<BoardsService>();
       services.AddTransient<PinsRepository>();
       services.AddTransient<PinsService>();
+      services.AddTransient<ProfilesRepository>();
+      services.AddTransient<ProfilesService>();
     }
 
     private void ConfigureCors(IServiceCollection services)
