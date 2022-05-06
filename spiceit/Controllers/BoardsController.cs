@@ -47,7 +47,7 @@ namespace spiceit.Controllers
       {
         Profile userInfo = await HttpContext.GetUserInfoAsync<Profile>();
 
-        return Ok(_bs.GetById(id, userInfo?.Id));
+        return Ok(_bs.GetById(id));
       }
       catch (Exception e)
       {
@@ -88,5 +88,6 @@ namespace spiceit.Controllers
 
       }
     }
+
   }
 }

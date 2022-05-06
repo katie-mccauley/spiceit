@@ -20,7 +20,7 @@ namespace spiceit.Services
       return _repo.Create(boardData);
     }
 
-    internal Board GetById(int id, string userId)
+    internal Board GetById(int id)
     {
       Board found = _repo.GetById(id);
       if (found == null)
@@ -37,7 +37,7 @@ namespace spiceit.Services
 
     internal ActionResult<string> Remove(int id, string userId)
     {
-      Board original = GetById(id, userId);
+      Board original = GetById(id);
       if (userId != original.CreatorId)
       {
         throw new Exception("You cannot delete a vault that isnt yours");
