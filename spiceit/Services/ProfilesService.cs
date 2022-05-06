@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using spiceit.Models;
 using spiceit.Repositories;
 
@@ -21,6 +22,12 @@ namespace spiceit.Services
         throw new Exception("No profile by that id");
       }
       return found;
+    }
+
+    internal List<Board> GetBoardsByUserId(string id, string userId)
+    {
+      List<Board> board = _repo.GetBoardsByUserId(id);
+      return board;
     }
   }
 }
