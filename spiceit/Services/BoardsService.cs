@@ -1,4 +1,5 @@
 using System;
+using Microsoft.AspNetCore.Mvc;
 using spiceit.Models;
 using spiceit.Repositories;
 
@@ -31,6 +32,17 @@ namespace spiceit.Services
       //   }
 
       return found;
+    }
+
+    internal ActionResult<string> Remove(int id, string userId)
+    {
+      Board original = GetById(id, userId);
+      if (userId != original.CreatorId)
+      {
+        throw new Exception("You cannot delete a vault that isnt yours");
+
+      }
+      return _repo.Remove(id);
     }
   }
 }

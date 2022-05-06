@@ -1,6 +1,8 @@
+using System;
 using System.Data;
 using System.Linq;
 using Dapper;
+using Microsoft.AspNetCore.Mvc;
 using spiceit.Models;
 
 namespace spiceit.Repositories
@@ -43,6 +45,19 @@ namespace spiceit.Repositories
         board.Creator = account;
         return board;
       }, new { id }).FirstOrDefault();
+    }
+
+    internal ActionResult<string> Remove(int id)
+    {
+      string sql = @"
+      DELETE FROM boards WHERE id = @id LIMIT 1;
+      ";
+      int rows = _db.Execute(sql, new { id });
+      if (rows > 0)
+      {
+        return "Board is deleted";
+      }
+      throw new Exception("there is no rows effected for deleting");
     }
   }
 }
