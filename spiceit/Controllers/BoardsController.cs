@@ -73,12 +73,12 @@ namespace spiceit.Controllers
     }
 
     [HttpGet("{id}/recipes")]
-    public async Task<ActionResult<List<BoardViewModel>>> GetRecipesByBoardId(int id)
+    public async Task<ActionResult<List<RecipeViewModel>>> GetRecipesByBoardId(int id)
     {
       try
       {
         Profile userInfo = await HttpContext.GetUserInfoAsync<Profile>();
-        List<BoardViewModel> recipes = _bs.GetRecipesByBoardId(id, userInfo);
+        List<RecipeViewModel> recipes = _bs.GetRecipesByBoardId(id, userInfo);
         return Ok(recipes);
       }
       catch (Exception e)

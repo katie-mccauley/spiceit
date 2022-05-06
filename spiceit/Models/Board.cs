@@ -12,7 +12,7 @@ namespace spiceit.Models
 
   public class BoardViewModel : Board
   {
-    public int PinId { get; set; }
+    public int? PinId { get; set; }
   }
 
 }

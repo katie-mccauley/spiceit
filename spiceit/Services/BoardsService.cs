@@ -46,7 +46,7 @@ namespace spiceit.Services
       return _repo.Remove(id);
     }
 
-    internal List<BoardViewModel> GetRecipesByBoardId(int id, object userId)
+    internal List<RecipeViewModel> GetRecipesByBoardId(int id, object userId)
     {
       Board found = _repo.GetById(id);
       return _repo.GetRecipesByBoardId(id);

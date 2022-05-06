@@ -18,5 +18,6 @@ namespace spiceit.Models
   public class RecipeViewModel : Recipe
   {
     public int? FavoriteId { get; set; }
+    public int PinId { get; set; }
   }
 }

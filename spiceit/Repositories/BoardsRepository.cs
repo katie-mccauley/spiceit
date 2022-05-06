@@ -61,7 +61,7 @@ namespace spiceit.Repositories
       throw new Exception("there is no rows effected for deleting");
     }
 
-    internal List<BoardViewModel> GetRecipesByBoardId(int id)
+    internal List<RecipeViewModel> GetRecipesByBoardId(int id)
     {
       string sql = @"SELECT 
         r.*, 
@@ -72,13 +72,13 @@ namespace spiceit.Repositories
         JOIN accounts a ON a.id = r.creatorId
         WHERE p.boardId = @id;
       ";
-      List<BoardViewModel> vaults = _db.Query<BoardViewModel, Account, Pin, BoardViewModel>(sql, (viewmodel, a, pin) =>
+      List<RecipeViewModel> board = _db.Query<RecipeViewModel, Account, Pin, RecipeViewModel>(sql, (viewmodel, a, pin) =>
       {
         viewmodel.PinId = pin.Id;
         viewmodel.Creator = a;
         return viewmodel;
-      }, new { id }).ToList<BoardViewModel>();
-      return vaults;
+      }, new { id }).ToList<RecipeViewModel>();
+      return board;
     }
   }
 }
