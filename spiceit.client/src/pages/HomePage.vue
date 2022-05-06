@@ -38,10 +38,10 @@
       </div>
     </div>
   </div>
-  <Modal id="create-recipe">
+  <ModalForm id="create-recipe">
     <template #title> Create Recipe</template>
     <template #body><CreateRecipe :recipeData="recipe" /></template>
-  </Modal>
+  </ModalForm>
   <Modal id="more-details">
     <template #title>
       <h2>

@@ -12,7 +12,7 @@
     "
     @submit.prevent="createRecipe"
   >
-    <h2>Create Project</h2>
+    <h2>Create Recipe</h2>
     <div class="col-md-4 mb-2">
       <label for="" class="form-label">Title: </label>
       <input
