@@ -16,5 +16,6 @@ export const AppState = reactive({
   mine: [],
   boardsUser: [],
   recipesUser: [],
-  activeBoard: {}
+  activeBoard: {},
+  pins: []
 })
