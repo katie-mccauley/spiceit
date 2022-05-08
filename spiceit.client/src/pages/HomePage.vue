@@ -49,9 +49,10 @@
         <i
           title="delete ingredient"
           @click="deleteRecipe(active.id)"
-          class="mdi mdi-delete text-danger"
-        ></i></h2
-    ></template>
+          class="mdi mdi-delete text-danger pb-0 mb-0"
+        ></i>
+      </h2>
+    </template>
     <template #body>
       <div class="container-fluid">
         <div class="row text-dark">
@@ -91,7 +92,7 @@
             </div>
           </div>
           <div class="col-md-4 m-2">
-            <h2>The steps for the recipe</h2>
+            <h2>The Steps</h2>
             <div class="col-12 text-dark bg-g rounded shadow">
               <div class="row p-2">
                 <div class="col-9">
@@ -116,6 +117,16 @@
               </div>
 
               <CreateStep :sdata="active" />
+            </div>
+            <div class="row mt-5 justify-content-end me-2">
+              <div class="col-2">
+                <img
+                  :src="active.creator?.picture"
+                  class="img-fluid cropped selectable"
+                  alt=""
+                  @click="goToProfile(active.creatorId)"
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -160,9 +171,11 @@ import Pop from "../utils/Pop"
 import { ingredientsService } from "../services/IngredientsService"
 import { stepsService } from "../services/StepsService"
 import { Modal } from "bootstrap"
+import { useRouter } from "vue-router"
 export default {
   name: 'Home',
   setup() {
+    const router = useRouter()
     watchEffect(async () => {
       try {
         await recipesService.getAllRecipes()
@@ -240,6 +253,14 @@ export default {
           logger.error
         }
       },
+      async goToProfile(id) {
+        try {
+          Modal.getOrCreateInstance(document.getElementById('more-details')).hide()
+          router.push({ name: 'Profile', params: { id } })
+        } catch (error) {
+          logger.error(error)
+        }
+      },
       ingredients: computed(() => AppState.ingredients),
       steps: computed(() => AppState.steps),
       active: computed(() => AppState.activeRecipe),
@@ -275,6 +296,12 @@ export default {
 
 .bg-g {
   background-color: #e9eaec;
+}
+
+.cropped {
+  height: 50px;
+  max-width: 50px;
+  border-radius: 50%;
 }
 
 .greentext {

@@ -41,6 +41,12 @@ class RecipesService {
     AppState.favs = res.data
   }
 
+  async getUserRecipes(id) {
+    const res = await api.get('api/profiles/' + id + '/recipes')
+    logger.log('all of the recipes', res.data)
+    AppState.recipes = res.data
+  }
+
 
 }
 
