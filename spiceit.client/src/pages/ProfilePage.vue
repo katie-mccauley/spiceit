@@ -12,14 +12,14 @@
         <h3>Boards: {{ boards.length }}</h3>
       </div>
     </div>
-    <div class="row">
-      <h2>Boards</h2>
+    <div class="row mt-3">
+      <h2>Boards:</h2>
       <div class="col-md-3" v-for="b in boards" :key="b.id">
         <Board :board="b" />
       </div>
     </div>
-    <div class="row">
-      <h2>Recipes</h2>
+    <div class="row mt-3">
+      <h2>Recipes:</h2>
       <div class="col-md-3" v-for="r in recipes" :key="r.id">
         <Recipe :recipe="r" />
       </div>

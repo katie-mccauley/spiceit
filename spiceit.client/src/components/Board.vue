@@ -1,5 +1,8 @@
 <template>
-  <div class="card selectable border border-3 rounded bg-white">
+  <div
+    class="card selectable border border-3 rounded bg-white"
+    @click="goToBoard(board)"
+  >
     <img
       class="img-fluid cropped rounded"
       :src="board.img"
@@ -20,7 +23,7 @@
           <h2
             data-bs-toggle="modal"
             data-bs-target="#more-details"
-            @click="activeRecipe(board.id)"
+            @click="activeBoard(board.id)"
             class="text-light"
           >
             {{ board.name }}
@@ -33,6 +36,9 @@
 
 
 <script>
+import { useRoute, useRouter } from "vue-router"
+import { boardsService } from "../services/BoardsService"
+import { logger } from "../utils/Logger"
 export default {
   props: {
     board: {
@@ -41,7 +47,20 @@ export default {
     }
   },
   setup() {
-    return {}
+    const router = useRouter()
+    return {
+      async goToBoard(board) {
+        const id = board.id
+        router.push({ name: 'Boards', params: { id } })
+      },
+      async activeBoard(id) {
+        try {
+          await boardsService.setActive(id)
+        } catch (error) {
+          logger.error(error)
+        }
+      }
+    }
   }
 }
 </script>

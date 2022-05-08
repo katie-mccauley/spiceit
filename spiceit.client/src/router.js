@@ -27,6 +27,12 @@ const routes = [
     name: 'Profile',
     component: loadPage('ProfilePage'),
     beforeEnter: authSettled
+  },
+  {
+    path: '/boards/:id',
+    name: 'Boards',
+    component: loadPage('BoardsPage'),
+    beforeEnter: authSettled
   }
 ]
 

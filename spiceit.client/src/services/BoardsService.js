@@ -8,6 +8,12 @@ class BoardsService {
     logger.log("all boards", res.data)
     AppState.boardsUser = res.data
   }
+
+  async setActive(id) {
+    const res = await api.get('api/boards/' + id)
+    logger.log('setative board', res.data)
+    AppState.acitveBoard = res.data
+  }
 }
 
 export const boardsService = new BoardsService()
