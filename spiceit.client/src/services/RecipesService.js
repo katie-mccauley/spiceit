@@ -44,7 +44,13 @@ class RecipesService {
   async getUserRecipes(id) {
     const res = await api.get('api/profiles/' + id + '/recipes')
     logger.log('all of the recipes', res.data)
-    AppState.recipes = res.data
+    AppState.recipesUser = res.data
+  }
+
+  async getUsers(id) {
+    const res = await api.get('api/profiles/' + id)
+    logger.log("users info", res.data)
+    AppState.profile = res.data
   }
 
 

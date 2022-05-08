@@ -6,7 +6,7 @@ class BoardsService {
   async getUserBoards(id) {
     const res = await api.get('api/profiles/' + id + '/boards')
     logger.log("all boards", res.data)
-    AppState.boards = res.data
+    AppState.boardsUser = res.data
   }
 }
 

@@ -14,6 +14,6 @@ export const AppState = reactive({
   activeStep: {},
   favorites: [],
   mine: [],
-  boards: [],
-  recipes: []
+  boardsUser: [],
+  recipesUser: []
 })
