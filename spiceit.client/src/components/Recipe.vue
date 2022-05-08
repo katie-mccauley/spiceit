@@ -15,17 +15,6 @@
         pb-md-2 pb-0
       "
     >
-      <!-- <div class="row justify-content-md-around">
-        <div class="col-12 d-flex justify-content-end">
-          <button
-            @click="deleteRecipe(recipe.id)"
-            type="button"
-            title="Delete Recipe"
-            class="btn-close btn-close-white me-2"
-            aria-label="Close"
-          ></button>
-        </div>
-      </div> -->
       <div class="row justify-content-md-around">
         <div class="col-10">
           <h2
@@ -37,16 +26,6 @@
             {{ recipe.title }}
           </h2>
         </div>
-        <!-- <div class="col-4">
-          <button
-            class="btn btn-outline-light"
-            data-bs-toggle="modal"
-            data-bs-target="#more-details"
-            @click="activeRecipe(recipe.id)"
-          >
-            Info
-          </button>
-        </div> -->
         <div class="col-2">
           <h3 class="m-0">
             <i
@@ -55,14 +34,6 @@
             ></i>
           </h3>
         </div>
-        <!-- <div class="col-5">
-          <button
-            class="btn btn-success"
-            
-          >
-            See more details
-          </button>
-        </div> -->
       </div>
     </div>
   </div>
