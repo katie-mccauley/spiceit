@@ -41,6 +41,7 @@
       <CreateBoard />
     </template>
   </ModalForm>
+  <RecipeDetails />
 </template>
 
 

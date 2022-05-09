@@ -44,120 +44,7 @@
     <template #title> Create Recipe</template>
     <template #body><CreateRecipe :recipeData="recipe" /></template>
   </ModalForm>
-  <Modal id="more-details">
-    <template #title>
-      <h2>
-        {{ active.title }}
-        <i
-          title="delete ingredient"
-          @click="deleteRecipe(active.id)"
-          class="mdi mdi-delete text-danger pb-0 mb-0"
-        ></i>
-      </h2>
-    </template>
-    <template #body>
-      <div class="container-fluid">
-        <div class="row text-dark">
-          <div class="col-md-3 p-0">
-            <img
-              :src="active.picture"
-              class="w-100 object-fit-cover heightimg img-fluid h-100"
-              alt=""
-            />
-          </div>
-          <div class="col-md-4 m-2">
-            <h2>The ingredients</h2>
-            <div class="col-12 text-dark bg-g rounded shadow">
-              <div class="row p-2">
-                <div class="col-9">
-                  <h5 v-for="i in ingredients" :key="i.id">
-                    {{ i.quantity }}: {{ i.name }}
-                  </h5>
-                </div>
-                <div class="col-2 mt-2">
-                  <h6 v-for="i in ingredients" :key="i.id">
-                    <i
-                      class="mdi mdi-delete selectable"
-                      @click="deleteIngredient(i.id)"
-                    ></i>
-                    <i
-                      class="mdi mdi-pencil selectable"
-                      data-bs-toggle="modal"
-                      data-bs-target="#edit"
-                      @click="activeIngred(i.id)"
-                    ></i>
-                  </h6>
-                </div>
-              </div>
-
-              <CreateIngredient :idata="active" />
-            </div>
-          </div>
-          <div class="col-md-4 m-2">
-            <h2>The Steps</h2>
-            <div class="col-12 text-dark bg-g rounded shadow">
-              <div class="row p-2">
-                <div class="col-9">
-                  <h5 v-for="s in steps" :key="s.id">
-                    {{ s.ordr }}: {{ s.body }}
-                  </h5>
-                </div>
-                <div class="col-2 mt-2">
-                  <h6 v-for="s in steps" :key="s.id">
-                    <i
-                      class="mdi mdi-delete selectable"
-                      @click="deleteStep(s.id)"
-                    ></i>
-                    <i
-                      class="mdi mdi-pencil selectable"
-                      data-bs-toggle="modal"
-                      data-bs-target="#edit-step"
-                      @click="activeStep(s.id)"
-                    ></i>
-                  </h6>
-                </div>
-              </div>
-
-              <CreateStep :sdata="active" />
-            </div>
-            <div class="row mt-5 justify-content-end me-2">
-              <div class="col-2">
-                <button
-                  class="btn outline-color dropdown-toggle"
-                  data-bs-toggle="dropdown"
-                  title="Add Keep to Vault"
-                >
-                  <h4><i class="mdi mdi-pin"></i></h4>
-                </button>
-                <ul
-                  class="dropdown-menu right-col"
-                  aria-labelledby="dropdownMenu2"
-                >
-                  <li v-for="p in myBoards" :key="p.id">
-                    <button
-                      class="dropdown-item"
-                      type="button"
-                      @click="createPin(p)"
-                    >
-                      <h5>{{ p.name }}</h5>
-                    </button>
-                  </li>
-                </ul>
-              </div>
-              <div class="col-2">
-                <img
-                  :src="active.creator?.picture"
-                  class="img-fluid cropped selectable"
-                  alt=""
-                  @click="goToProfile(active.creatorId)"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </template>
-  </Modal>
+  <RecipeDetails />
   <ModalForm id="edit">
     <template #title> Edit Ingredient</template>
     <template #body>
@@ -213,24 +100,6 @@ export default {
     })
     return {
       recipes: computed(() => AppState.recipes),
-      async deleteIngredient(id) {
-        try {
-          if (await Pop.confirm()) {
-            await ingredientsService.deleteIngredient(id)
-          }
-        } catch (error) {
-          logger.error(error)
-        }
-      },
-      async deleteStep(id) {
-        try {
-          if (await Pop.confirm()) {
-            await stepsService.deleteStep(id)
-          }
-        } catch (error) {
-          logger.error(error)
-        }
-      },
       async getAll() {
         try {
           await recipesService.getAllRecipes()
@@ -246,13 +115,6 @@ export default {
 
         }
       },
-      async activeIngred(id) {
-        try {
-          await ingredientsService.getOne(id)
-        } catch (error) {
-          logger.error(error)
-        }
-      },
       async getMine() {
         try {
           await recipesService.getMine()
@@ -261,49 +123,6 @@ export default {
 
         }
       },
-      async activeStep(id) {
-        try {
-          await stepsService.getOne(id)
-        } catch (error) {
-          logger.error(error)
-        }
-      },
-      async deleteRecipe(id) {
-        try {
-          if (await Pop.confirm()) {
-            await recipesService.deleteRecipe(id)
-            Modal.getOrCreateInstance(document.getElementById('more-details')).hide()
-          }
-
-        } catch (error) {
-          logger.error
-        }
-      },
-      async goToProfile(id) {
-        try {
-          Modal.getOrCreateInstance(document.getElementById('more-details')).hide()
-          router.push({ name: 'Profile', params: { id } })
-        } catch (error) {
-          logger.error(error)
-        }
-      },
-      async createPin(pin) {
-        try {
-          const pinData = {
-            boardId: pin.id,
-            recipeId: AppState.activeRecipe.id
-          }
-          await pinsService.createPin(pinData)
-        } catch (error) {
-          logger.error(error)
-        }
-      },
-      ingredients: computed(() => AppState.ingredients),
-      steps: computed(() => AppState.steps),
-      active: computed(() => AppState.activeRecipe),
-      activei: computed(() => AppState.activeIngredient),
-      actives: computed(() => AppState.activeStep),
-      myBoards: computed(() => AppState.accountBoards)
     }
   }
 }
