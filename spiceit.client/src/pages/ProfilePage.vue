@@ -13,7 +13,17 @@
       </div>
     </div>
     <div class="row mt-3">
-      <h2>Boards:</h2>
+      <h2>
+        Boards:
+        <i
+          v-if="account.id == profile.id"
+          data-bs-toggle="modal"
+          data-bs-target="#create-board"
+          class="mdi mdi-plus text-primary selectable"
+          title="Create Board"
+        >
+        </i>
+      </h2>
       <div class="col-md-3" v-for="b in boards" :key="b.id">
         <Board :board="b" />
       </div>
@@ -25,6 +35,12 @@
       </div>
     </div>
   </div>
+  <ModalForm id="create-board">
+    <template #title>Create Board</template>
+    <template #body>
+      <CreateBoard />
+    </template>
+  </ModalForm>
 </template>
 
 
@@ -50,7 +66,8 @@ export default {
     return {
       profile: computed(() => AppState.profile),
       recipes: computed(() => AppState.recipesUser),
-      boards: computed(() => AppState.boardsUser)
+      boards: computed(() => AppState.boardsUser),
+      account: computed(() => AppState.account)
     }
   }
 }
