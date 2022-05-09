@@ -27,6 +27,12 @@ class BoardsService {
     logger.log("creating this board", res.data)
     AppState.boardsUser.push(res.data)
   }
+
+  async getAccountBoards() {
+    const res = await api.get("account/boards")
+    logger.log("accountvaults", res.data)
+    AppState.accountBoards = res.data
+  }
 }
 
 export const boardsService = new BoardsService()

@@ -15,12 +15,16 @@ namespace spiceit.Controllers
   {
     private readonly AccountService _accountService;
     private readonly RecipesService _rs;
+    private readonly BoardsService _bs;
 
-    public AccountController(AccountService accountService, RecipesService rs)
+    public AccountController(AccountService accountService, RecipesService rs, BoardsService bs)
     {
       _accountService = accountService;
       _rs = rs;
+      _bs = bs;
     }
+
+
 
     // public AccountController(AccountService accountService)
     // {
@@ -72,6 +76,21 @@ namespace spiceit.Controllers
 
         return BadRequest(e.Message);
 
+      }
+    }
+
+    [HttpGet("boards")]
+    [Authorize]
+    public async Task<ActionResult<List<Board>>> GetMyBoards()
+    {
+      try
+      {
+        Profile userInfo = await HttpContext.GetUserInfoAsync<Profile>();
+        return Ok(_bs.GetMyBoards(userInfo.Id));
+      }
+      catch (Exception e)
+      {
+        return BadRequest(e.Message);
       }
     }
   }

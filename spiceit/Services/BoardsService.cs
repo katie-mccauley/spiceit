@@ -51,5 +51,16 @@ namespace spiceit.Services
       Board found = _repo.GetById(id);
       return _repo.GetRecipesByBoardId(id);
     }
+
+    internal List<Board> GetBoardsByUserId(string id)
+    {
+      List<Board> board = _repo.GetBoardsByUserId(id);
+      return board;
+    }
+    internal List<Board> GetMyBoards(string userId)
+    {
+      List<Board> board = _repo.GetBoardsByUserId(userId);
+      return board;
+    }
   }
 }

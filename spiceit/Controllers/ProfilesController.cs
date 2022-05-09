@@ -15,10 +15,12 @@ namespace spiceit.Controllers
   public class ProfilesController : ControllerBase
   {
     private readonly ProfilesService _ps;
+    private readonly BoardsService _bs;
 
-    public ProfilesController(ProfilesService ps)
+    public ProfilesController(ProfilesService ps, BoardsService bs)
     {
       _ps = ps;
+      _bs = bs;
     }
 
     [HttpGet("{id}")]
@@ -41,7 +43,7 @@ namespace spiceit.Controllers
       try
       {
         Profile userInfo = await HttpContext.GetUserInfoAsync<Profile>();
-        List<Board> board = _ps.GetBoardsByUserId(id, userInfo?.Id);
+        List<Board> board = _bs.GetBoardsByUserId(id);
         return Ok(board);
       }
       catch (Exception e)

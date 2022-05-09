@@ -23,22 +23,7 @@ namespace spiceit.Repositories
       return _db.QueryFirstOrDefault<Profile>(sql, new { id });
     }
 
-    internal List<Board> GetBoardsByUserId(string id)
-    {
-      string sql = @"
-      SELECT 
-      b.*, 
-      a.*
-      FROM boards b
-      JOIN accounts a ON a.id = b.creatorId
-      WHERE b.creatorId = @id;
-      ";
-      return _db.Query<Board, Account, Board>(sql, (b, a) =>
-      {
-        b.Creator = a;
-        return b;
-      }, new { id }).ToList();
-    }
+
 
     internal List<Recipe> GetRecipesByUserId(string id)
     {

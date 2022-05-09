@@ -20,12 +20,7 @@
     >
       <div class="row justify-content-md-around">
         <div class="col-12">
-          <h2
-            data-bs-toggle="modal"
-            data-bs-target="#more-details"
-            @click="activeBoard(board.id)"
-            class="text-light"
-          >
+          <h2 @click="activeBoard(board.id)" class="text-light">
             {{ board.name }}
           </h2>
         </div>

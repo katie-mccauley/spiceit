@@ -24,11 +24,7 @@ namespace spiceit.Services
       return found;
     }
 
-    internal List<Board> GetBoardsByUserId(string id, string userId)
-    {
-      List<Board> board = _repo.GetBoardsByUserId(id);
-      return board;
-    }
+
 
     internal List<Recipe> GetRecipesByUserId(string id)
     {

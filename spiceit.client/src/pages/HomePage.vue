@@ -18,7 +18,9 @@
         <h3>
           <a class="greentext selectable" @click="getFavs()">Favorites</a>
         </h3>
-        <h3><a class="greentext selectable" @click="getMine()">My Posts</a></h3>
+        <h3>
+          <a class="greentext selectable" @click="getMine()">My Recipes</a>
+        </h3>
       </div>
     </div>
 
@@ -119,6 +121,29 @@
               <CreateStep :sdata="active" />
             </div>
             <div class="row mt-5 justify-content-end me-2">
+              <div class="col-2">
+                <button
+                  class="btn outline-color dropdown-toggle"
+                  data-bs-toggle="dropdown"
+                  title="Add Keep to Vault"
+                >
+                  <h4><i class="mdi mdi-pin"></i></h4>
+                </button>
+                <ul
+                  class="dropdown-menu right-col"
+                  aria-labelledby="dropdownMenu2"
+                >
+                  <li v-for="p in myBoards" :key="p.id">
+                    <button
+                      class="dropdown-item"
+                      type="button"
+                      @click="createPin(p)"
+                    >
+                      <h5>{{ p.name }}</h5>
+                    </button>
+                  </li>
+                </ul>
+              </div>
               <div class="col-2">
                 <img
                   :src="active.creator?.picture"
@@ -265,7 +290,8 @@ export default {
       steps: computed(() => AppState.steps),
       active: computed(() => AppState.activeRecipe),
       activei: computed(() => AppState.activeIngredient),
-      actives: computed(() => AppState.activeStep)
+      actives: computed(() => AppState.activeStep),
+      myBoards: computed(() => AppState.accountBoards)
     }
   }
 }
