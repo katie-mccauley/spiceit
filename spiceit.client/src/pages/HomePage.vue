@@ -25,7 +25,7 @@
     </div>
 
     <div class="row">
-      <div class="col-md-2 col-10" v-for="r in recipes" :key="r.id">
+      <div class="col-md-2 col-12" v-for="r in recipes" :key="r.id">
         <!-- <div class="row justify-content-end">
           <button
             @click="deleteRecipe(r.id)"
@@ -197,6 +197,7 @@ import { ingredientsService } from "../services/IngredientsService"
 import { stepsService } from "../services/StepsService"
 import { Modal } from "bootstrap"
 import { useRouter } from "vue-router"
+import { pinsService } from "../services/PinsService"
 export default {
   name: 'Home',
   setup() {
@@ -282,6 +283,17 @@ export default {
         try {
           Modal.getOrCreateInstance(document.getElementById('more-details')).hide()
           router.push({ name: 'Profile', params: { id } })
+        } catch (error) {
+          logger.error(error)
+        }
+      },
+      async createPin(pin) {
+        try {
+          const pinData = {
+            boardId: pin.id,
+            recipeId: AppState.activeRecipe.id
+          }
+          await pinsService.createPin(pinData)
         } catch (error) {
           logger.error(error)
         }
